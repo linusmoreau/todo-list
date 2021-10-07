@@ -16,3 +16,5 @@ The application will keep track of:
 I'm making this project as an upgrade to my current minimalist method of maintaining my to-dos 
 (it is *definitely not* just a .txt file). Having a more formalized system for keeping track of my tasks
 would be a real benefit to **everything**.
+
+This application will be used by myself, but it's available if you or anyone would like to use it!
