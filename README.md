@@ -1,6 +1,5 @@
 # My To-Do List
-
-## Or: How I learned to stop worrying and keep track of things
+### Or: How I learned to stop worrying and keep track of things
 
 A to-do list tailor-made for me, myself, and I. The completed application should keep track of various things I should
 get to (along with lighter stuff to brighten the day), while also maintaining various metrics about it for easier
@@ -18,3 +17,10 @@ I'm making this project as an upgrade to my current minimalist method of maintai
 would be a real benefit to **everything**.
 
 This application will be used by myself, but it's available if you or anyone would like to use it!
+
+### User Stories
+- I want to be able to add items to my to-do list
+- I want to be able to edit items on my to-do list
+- I want to be able to delete items from my to-do list
+- I want to be able to see the items on my to-do list organized based on subject and/or due date
+- I want to be able to view items for specific subjects
