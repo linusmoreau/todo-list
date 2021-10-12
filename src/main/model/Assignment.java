@@ -5,7 +5,7 @@ public class Assignment implements Item {
     private Date dueDate;
     private Course course;
 
-    // MODIFIES: tihs
+    // MODIFIES: this
     // EFFECTS:  makes assignment with given name and course and placeholder date
     public Assignment(String name, Course course) {
         this.name = name;

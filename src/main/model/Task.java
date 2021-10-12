@@ -5,6 +5,8 @@ public class Task implements Item {
     private Date date;
     private String desc;
 
+    // MODIFIES: this
+    // EFFECTS:  makes task with given name and placeholder date and description
     public Task(String name) {
         this.name = name;
         date = new Date();

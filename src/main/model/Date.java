@@ -6,6 +6,8 @@ public class Date {
     private int month;
     private int day;
 
+    // MODIFIES: this
+    // EFFECTS:  makes placeholder date
     public Date() {
         isSet = false;
     }

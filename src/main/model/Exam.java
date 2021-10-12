@@ -4,6 +4,8 @@ public class Exam implements Item {
     private Date date;
     private Course course;
 
+    // MODIFIES: this
+    // EFFECTS:  makes exam for given date and course
     public Exam(Date date, Course course) {
         this.date = date;
         this.course = course;

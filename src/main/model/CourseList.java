@@ -6,6 +6,8 @@ import java.util.Objects;
 public class CourseList {
     private final ArrayList<Course> courseList;
 
+    // MODIFIES: this
+    // EFFECTS:  makes course list
     public CourseList() {
         courseList = new ArrayList<>();
     }
@@ -30,7 +32,12 @@ public class CourseList {
 
     // EFFECTS: returns the course with the given name
     public Course find(String name) {
-        return new Course(name); // stub
+        for (Course course : courseList) {
+            if (Objects.equals(course.getName(), name)) {
+                return course;
+            }
+        }
+        return null;
     }
 
     public ArrayList<Course> getCourseList() {

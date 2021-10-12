@@ -7,6 +7,8 @@ public class Course {
     private final ArrayList<Assignment> assignments;
     private final ArrayList<Exam> exams;
 
+    // MODIFIES: this
+    // EFFECTS:  makes task with given name and initializes assignments and exams lists
     public Course(String name) {
         this.name = name;
         assignments = new ArrayList<>();
