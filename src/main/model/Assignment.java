@@ -1,6 +1,6 @@
 package model;
 
-public class Assignment implements Item {
+public class Assignment {
     private String name;
     private Date dueDate;
     private Course course;

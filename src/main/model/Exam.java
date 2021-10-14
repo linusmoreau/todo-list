@@ -1,6 +1,6 @@
 package model;
 
-public class Exam implements Item {
+public class Exam {
     private Date date;
     private Course course;
 

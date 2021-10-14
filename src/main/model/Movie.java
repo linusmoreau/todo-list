@@ -1,6 +1,6 @@
 package model;
 
-public class Movie implements Item {
+public class Movie {
     private String name;
     private String bookmark;
 

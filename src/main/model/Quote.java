@@ -1,6 +1,6 @@
 package model;
 
-public class Quote implements Item {
+public class Quote {
     private String quote;
     private String author;
 

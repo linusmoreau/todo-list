@@ -1,6 +1,6 @@
 package model;
 
-public class Task implements Item {
+public class Task {
     private String name;
     private Date date;
     private String desc;
