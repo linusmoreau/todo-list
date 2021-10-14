@@ -99,6 +99,12 @@ public class Interpreter {
         chooseOptionMovie();
     }
 
+    // EFFECTS: displays the assignments and exams of the given course
+    private void displayCourse(Course course) {
+        displayAssignments(course.getAssignments());
+        displayExams(course.getExams());
+    }
+
     // EFFECTS: displays courses and relevant information
     private void displayCourses(ArrayList<Course> courses) {
         System.out.println();
@@ -206,7 +212,7 @@ public class Interpreter {
 
     // EFFECTS: conducts dialogue for options about courses
     private void chooseOptionCourse() throws QuitException, EmptyException {
-        displayOptions();
+        displayCourseOptions();
         String input = scanner.nextLine().toLowerCase();
         switch (input) {
             case "quit":
@@ -216,6 +222,8 @@ public class Interpreter {
             case "e":   editCourse(selectCourse());
                         break;
             case "d":   deleteCourse(selectCourse());
+                        break;
+            case "v":   displayCourse(selectCourse());
                         break;
             default:    invalidInput();
                         break;
@@ -310,6 +318,13 @@ public class Interpreter {
             default:    invalidInput();
                 break;
         }
+    }
+
+    // EFFECTS: displays the commands for courses category and guidance for entry
+    private void displayCourseOptions() {
+        System.out.println();
+        System.out.println("Options: [A]dd, [E]dit, [D]elete, [V]iew, or quit");
+        System.out.print("Enter: ");
     }
 
     // EFFECTS: displays the basic commands and guidance for entry
