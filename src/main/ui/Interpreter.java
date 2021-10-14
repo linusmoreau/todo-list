@@ -1,5 +1,6 @@
 package ui;
 
+import exceptions.EmptyException;
 import exceptions.QuitException;
 import model.*;
 
@@ -9,12 +10,14 @@ import java.util.Scanner;
 public class Interpreter {
     private final ToDoList toDoList;
     private final Scanner scanner;
+    private final Sorter sorter;
 
     // MODIFIES: this
     // EFFECTS: makes dialogue interpreter for console-based user interface
     public Interpreter(ToDoList toDoList) {
         this.toDoList = toDoList;
         scanner = new Scanner(System.in);
+        sorter = new Sorter();
     }
 
     // EFFECTS: receives and provides display and options for given category
@@ -27,12 +30,14 @@ public class Interpreter {
                 callCategory(scanner.nextLine().toLowerCase());
             } catch (QuitException e) {
                 break;
+            } catch (EmptyException ignored) {
+                ;
             }
         }
     }
 
     // EFFECTS: calls the given category for dialogue
-    private void callCategory(String s) throws QuitException {
+    private void callCategory(String s) throws QuitException, EmptyException {
         switch (s) {
             case "quit":
                 throw new QuitException();
@@ -59,37 +64,37 @@ public class Interpreter {
     }
 
     // EFFECTS: displays courses and provides option dialogue
-    private void categoryCourses() throws QuitException {
+    private void categoryCourses() throws QuitException, EmptyException {
         displayCourses(toDoList.getCourses());
         chooseOptionCourse();
     }
 
     // EFFECTS: displays assignments and provides option dialogue
-    private void categoryAssignments() throws QuitException {
+    private void categoryAssignments() throws QuitException, EmptyException {
         displayAssignments(toDoList.getAssignments());
         chooseOptionAssignment();
     }
 
     // EFFECTS: displays exams and provides option dialogue
-    private void categoryExams() throws QuitException {
+    private void categoryExams() throws QuitException, EmptyException {
         displayExams(toDoList.getExams());
         chooseOptionExam();
     }
 
     // EFFECTS: displays tasks and provides option dialogue
-    private void categoryTasks() throws QuitException {
+    private void categoryTasks() throws QuitException, EmptyException {
         displayTasks(toDoList.getTasks());
         chooseOptionTask();
     }
 
     // EFFECTS: displays quotes and provides option dialogue
-    private void categoryQuotes() throws QuitException {
+    private void categoryQuotes() throws QuitException, EmptyException {
         displayQuotes(toDoList.getQuotes());
         chooseOptionQuote();
     }
 
     // EFFECTS: displays movies and provides option dialogue
-    private void categoryMovies() throws QuitException {
+    private void categoryMovies() throws QuitException, EmptyException {
         displayMovies(toDoList.getMovies());
         chooseOptionMovie();
     }
@@ -116,9 +121,10 @@ public class Interpreter {
         if (assignments.isEmpty()) {
             System.out.println("No assignments to display!");
         } else {
+            ArrayList<Assignment> show = sorter.sortedAssignments(assignments);
             System.out.printf("%-8s %-32s %-32s %-32s", "Index", "Assignment", "Course", "Due Date");
             int i = 1;
-            for (Assignment assignment : assignments) {
+            for (Assignment assignment : show) {
                 System.out.println();
                 System.out.printf("%-8s %-32s %-32s %-32s",
                         i, assignment.getName(), assignment.getCourse().getName(), assignment.getDueDate().toString());
@@ -134,9 +140,10 @@ public class Interpreter {
         if (exams.isEmpty()) {
             System.out.println("No exams to display!");
         } else {
+            ArrayList<Exam> show = sorter.sortedExams(exams);
             System.out.printf("%-8s %-32s %-32s", "Index", "Course", "Date");
             int i = 1;
-            for (Exam exam : exams) {
+            for (Exam exam : show) {
                 System.out.println();
                 System.out.printf("%-8s %-32s %-32s", i, exam.getCourse().getName(), exam.getDate().toString());
                 i++;
@@ -151,9 +158,10 @@ public class Interpreter {
         if (tasks.isEmpty()) {
             System.out.println("No tasks to display!");
         } else {
+            ArrayList<Task> show = sorter.sortedTasks(tasks);
             System.out.printf("%-8s %-32s %-32s %-32s", "Index", "Task", "Date", "Description");
             int i = 1;
-            for (Task task : tasks) {
+            for (Task task : show) {
                 System.out.println();
                 System.out.printf("%-8s %-32s %-32s %-32s", i, task.getName(), task.getDate(), task.getDesc());
                 i++;
@@ -197,7 +205,7 @@ public class Interpreter {
     }
 
     // EFFECTS: conducts dialogue for options about courses
-    private void chooseOptionCourse() throws QuitException {
+    private void chooseOptionCourse() throws QuitException, EmptyException {
         displayOptions();
         String input = scanner.nextLine().toLowerCase();
         switch (input) {
@@ -215,7 +223,7 @@ public class Interpreter {
     }
 
     // EFFECTS: conducts dialogue for options about assignments
-    private void chooseOptionAssignment() throws QuitException {
+    private void chooseOptionAssignment() throws QuitException, EmptyException {
         displayOptions();
         String input = scanner.nextLine().toLowerCase();
         switch (input) {
@@ -233,7 +241,7 @@ public class Interpreter {
     }
 
     // EFFECTS: conducts dialogue for options about exams
-    private void chooseOptionExam() throws QuitException {
+    private void chooseOptionExam() throws QuitException, EmptyException {
         displayOptions();
         String input = scanner.nextLine().toLowerCase();
         switch (input) {
@@ -251,7 +259,7 @@ public class Interpreter {
     }
 
     // EFFECTS: conducts dialogue for options about tasks
-    private void chooseOptionTask() throws QuitException {
+    private void chooseOptionTask() throws QuitException, EmptyException {
         displayOptions();
         String input = scanner.nextLine().toLowerCase();
         switch (input) {
@@ -269,7 +277,7 @@ public class Interpreter {
     }
 
     // EFFECTS: conducts dialogue for options about quotes
-    private void chooseOptionQuote() throws QuitException {
+    private void chooseOptionQuote() throws QuitException, EmptyException {
         displayOptions();
         String input = scanner.nextLine().toLowerCase();
         switch (input) {
@@ -287,7 +295,7 @@ public class Interpreter {
     }
 
     // EFFECTS: conducts dialogue for options about movies
-    private void chooseOptionMovie() throws QuitException {
+    private void chooseOptionMovie() throws QuitException, EmptyException {
         displayOptions();
         String input = scanner.nextLine().toLowerCase();
         switch (input) {
@@ -312,7 +320,7 @@ public class Interpreter {
     }
 
     // EFFECTS: provides dialogue for editing a course's attributes
-    private void editCourse(Course course) throws QuitException {
+    private void editCourse(Course course) throws QuitException, EmptyException {
         System.out.println("Editable: [N]ame, [A]ssignments, [E]xams");
         System.out.print("Enter: ");
         String input = scanner.nextLine().toLowerCase();
@@ -339,7 +347,7 @@ public class Interpreter {
     }
 
     // EFFECTS: provides dialogue for modifying data about a course's assignments
-    private void modifyAssignments(Course course) throws QuitException {
+    private void modifyAssignments(Course course) throws QuitException, EmptyException {
         displayOptions();
         String input = scanner.nextLine().toLowerCase();
         switch (input) {
@@ -357,7 +365,7 @@ public class Interpreter {
     }
 
     // EFFECTS: provides dialogue for modifying data about a course's exams
-    private void modifyExams(Course course) throws QuitException {
+    private void modifyExams(Course course) throws QuitException, EmptyException {
         displayOptions();
         String input = scanner.nextLine().toLowerCase();
         switch (input) {
@@ -383,7 +391,7 @@ public class Interpreter {
     }
 
     // EFFECTS: provides dialogue for adding a new assignment
-    private void addAssignment() {
+    private void addAssignment() throws EmptyException {
         addAssignment(selectCourse());
     }
 
@@ -400,7 +408,7 @@ public class Interpreter {
     }
 
     // EFFECTS: provides dialogue for adding a new exam
-    private void addExam() {
+    private void addExam() throws EmptyException {
         addExam(selectCourse());
     }
 
@@ -454,7 +462,11 @@ public class Interpreter {
     }
 
     // EFFECTS: provides dialogue selecting an existing course
-    private Course selectCourse() {
+    private Course selectCourse() throws EmptyException {
+        if (toDoList.getCourses().isEmpty()) {
+            System.out.println("No courses to select from!");
+            throw new EmptyException();
+        }
         while (true) {
             System.out.print("Enter course to select: ");
             String input = scanner.nextLine();
@@ -468,7 +480,11 @@ public class Interpreter {
     }
 
     // EFFECTS: provides dialogue selecting an existing assignment
-    private Assignment selectAssignment(ArrayList<Assignment> assignments) {
+    private Assignment selectAssignment(ArrayList<Assignment> assignments) throws EmptyException {
+        if (assignments.isEmpty()) {
+            System.out.println("No assignments to select from!");
+            throw new EmptyException();
+        }
         while (true) {
             System.out.print("Enter assignment index: ");
             int n = scanner.nextInt();
@@ -482,7 +498,11 @@ public class Interpreter {
     }
 
     // EFFECTS: provides dialogue selecting an existing exam
-    private Exam selectExam(ArrayList<Exam> exams) {
+    private Exam selectExam(ArrayList<Exam> exams) throws EmptyException {
+        if (exams.isEmpty()) {
+            System.out.println("No exams to select from!");
+            throw new EmptyException();
+        }
         while (true) {
             System.out.print("Enter assignment index: ");
             int n = scanner.nextInt();
@@ -496,7 +516,11 @@ public class Interpreter {
     }
 
     // EFFECTS: provides dialogue selecting an existing task
-    private Task selectTask(ArrayList<Task> tasks) {
+    private Task selectTask(ArrayList<Task> tasks) throws EmptyException {
+        if (tasks.isEmpty()) {
+            System.out.println("No tasks to select from!");
+            throw new EmptyException();
+        }
         while (true) {
             System.out.print("Enter task index: ");
             int n = scanner.nextInt();
@@ -509,7 +533,11 @@ public class Interpreter {
     }
 
     // EFFECTS: provides dialogue selecting an existing quote
-    private Quote selectQuote(ArrayList<Quote> quotes) {
+    private Quote selectQuote(ArrayList<Quote> quotes) throws EmptyException {
+        if (quotes.isEmpty()) {
+            System.out.println("No quotes to select from!");
+            throw new EmptyException();
+        }
         while (true) {
             System.out.print("Enter quote index: ");
             int n = scanner.nextInt();
@@ -523,7 +551,11 @@ public class Interpreter {
     }
 
     // EFFECTS: provides dialogue selecting an existing movie
-    private Movie selectMovie(ArrayList<Movie> movies) {
+    private Movie selectMovie(ArrayList<Movie> movies) throws EmptyException {
+        if (movies.isEmpty()) {
+            System.out.println("No movies to select from!");
+            throw new EmptyException();
+        }
         while (true) {
             System.out.print("Enter movie index: ");
             int n = scanner.nextInt();
@@ -574,7 +606,7 @@ public class Interpreter {
 
     // MODIFIES: an assignment
     // EFFECTS:  provides dialogue for editing the attributes of an assignment
-    private void editAssignment(Assignment assignment) {
+    private void editAssignment(Assignment assignment) throws EmptyException {
         String input;
         System.out.print("Edit assignment name? (y/n): ");
         input = scanner.nextLine().toLowerCase();
@@ -597,7 +629,7 @@ public class Interpreter {
 
     // MODIFIES: an exam
     // EFFECTS:  provides dialogue for editing the attributes of an exam
-    private void editExam(Exam exam) {
+    private void editExam(Exam exam) throws EmptyException {
         String input;
         System.out.print("Edit exam date? (y/n): ");
         input = scanner.nextLine().toLowerCase();

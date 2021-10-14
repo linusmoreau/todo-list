@@ -6,12 +6,10 @@ public class Main {
 
     /*
     TODO:
-     Fix bug when there are no items to edit/delete
-     Add sortability
-     Add special display cases when empty
+     Add a [V]iew option for courses
      */
 
-    // EFFECTS: Runs the user interface loop for commands and responses
+    // EFFECTS: runs the user interface loop for commands and responses
     public static void main(String[] args) {
         ToDoList toDoList = new ToDoList();
         Interpreter interpreter = new Interpreter(toDoList);
