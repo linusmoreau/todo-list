@@ -1,6 +1,5 @@
 package model;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -34,5 +33,13 @@ public class DateTest {
         assertEquals(1941, date.getYear());
         assertEquals(9, date.getMonth());
         assertEquals(23, date.getDay());
+    }
+
+    @Test
+    public void testComparator() {
+        Date date = new Date();
+        assertEquals(2_147_483_647, date.comparator());
+        date.setDate(2021, 10, 15);
+        assertEquals(20211015, date.comparator());
     }
 }

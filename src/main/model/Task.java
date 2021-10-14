@@ -1,6 +1,6 @@
 package model;
 
-public class Task {
+public class Task implements Comparable {
     private String name;
     private Date date;
     private String desc;
@@ -10,6 +10,14 @@ public class Task {
     public Task(String name) {
         this.name = name;
         date = new Date();
+        desc = "";
+    }
+
+    // MODIFIES: this
+    // EFFECTS:  makes task with given name, date and placeholder description
+    public Task(String name, Date date) {
+        this.name = name;
+        this.date = date;
         desc = "";
     }
 
@@ -35,5 +43,13 @@ public class Task {
 
     public String getName() {
         return name;
+    }
+
+    // EFFECTS: returns > 0 if this date is after the given task's date
+    //          returns == 0 if they have the same date
+    //          returns < 0 if this date is before the given task's date
+    @Override
+    public int compareTo(Object o) {
+        return (Integer.compare(this.getDate().comparator(), ((Task) o).getDate().comparator()));
     }
 }

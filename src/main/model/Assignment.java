@@ -1,6 +1,6 @@
 package model;
 
-public class Assignment {
+public class Assignment implements Comparable {
     private String name;
     private Date dueDate;
     private Course course;
@@ -11,6 +11,14 @@ public class Assignment {
         this.name = name;
         this.course = course;
         this.dueDate = new Date();
+    }
+
+    // MODIFIES: this
+    // EFFECTS:  makes assignment with given name course, and due date
+    public Assignment(String name, Course course, Date dueDate) {
+        this.name = name;
+        this.course = course;
+        this.dueDate = dueDate;
     }
 
     public String getName() {
@@ -35,5 +43,13 @@ public class Assignment {
 
     public void setCourse(Course newCourse) {
         course = newCourse;
+    }
+
+    // EFFECTS: returns > 0 if this date is after the given assignment's date
+    //          returns == 0 if they have the same date
+    //          returns < 0 if this date is before the given assignment's date
+    @Override
+    public int compareTo(Object o) {
+        return (Integer.compare(this.getDueDate().comparator(), ((Assignment) o).getDueDate().comparator()));
     }
 }

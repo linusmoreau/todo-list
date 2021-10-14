@@ -22,5 +22,5 @@ This application will be used by myself, but it's available if you or anyone wou
 - I want to be able to add items to my to-do list
 - I want to be able to edit items on my to-do list
 - I want to be able to delete items from my to-do list
-- I want to be able to see the items on my to-do list organized based on subject and/or due date
+- I want to be able to see the items on my to-do list organized based on subject and due date
 - I want to be able to view items for specific subjects

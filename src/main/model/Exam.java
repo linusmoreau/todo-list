@@ -1,6 +1,6 @@
 package model;
 
-public class Exam {
+public class Exam implements Comparable {
     private Date date;
     private Course course;
 
@@ -25,5 +25,13 @@ public class Exam {
 
     public void setCourse(Course course) {
         this.course = course;
+    }
+
+    // EFFECTS: returns > 0 if this date is after the given exam's date
+    //          returns == 0 if they have the same date
+    //          returns < 0 if this date is before the given exam's date
+    @Override
+    public int compareTo(Object o) {
+        return (Integer.compare(this.getDate().comparator(), ((Exam) o).getDate().comparator()));
     }
 }

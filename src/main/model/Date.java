@@ -71,6 +71,10 @@ public class Date {
 
     // EFFECTS: returns an integer which can be compared with other dates for ordering
     public int comparator() {
-        return getYear() * 10000 + getMonth() * 100 + getDay();
+        if (isSet()) {
+            return (getYear() * 10000 + getMonth() * 100 + getDay());
+        } else {
+            return 2_147_483_647;
+        }
     }
 }
