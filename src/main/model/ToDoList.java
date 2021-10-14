@@ -21,8 +21,8 @@ public class ToDoList {
 
     // MODIFIES: this
     // EFFECTS: adds course to to-do list
-    public void add(Course course) throws CourseAlreadyExists {
-        courses.add(course);
+    public boolean add(Course course) {
+        return courses.add(course);
     }
 
     // REQUIRES: assignment's course is in the course list
@@ -137,5 +137,29 @@ public class ToDoList {
     // EFFECTS: returns the number of movies in to-do list
     public int getNumberOfMovies() {
         return movies.size();
+    }
+
+    public CourseList getCourses() {
+        return courses;
+    }
+
+    public ArrayList<Assignment> getAssignments() {
+        return assignments;
+    }
+
+    public ArrayList<Exam> getExams() {
+        return exams;
+    }
+
+    public ArrayList<Task> getTasks() {
+        return tasks;
+    }
+
+    public ArrayList<Quote> getQuotes() {
+        return quotes;
+    }
+
+    public ArrayList<Movie> getMovies() {
+        return movies;
     }
 }

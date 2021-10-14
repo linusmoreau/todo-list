@@ -33,7 +33,7 @@ public class Assignment implements Item {
         return course;
     }
 
-    public void setCourse(Course course) {
-        this.course = course;
+    public void setCourse(Course newCourse) {
+        course = newCourse;
     }
 }
