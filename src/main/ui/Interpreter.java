@@ -1,7 +1,5 @@
 package ui;
 
-import exceptions.EmptyException;
-import exceptions.QuitException;
 import model.*;
 
 import java.util.ArrayList;
