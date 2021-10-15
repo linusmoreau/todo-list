@@ -4,11 +4,6 @@ import model.ToDoList;
 
 public class Main {
 
-    /*
-    TODO:
-     Add a [V]iew option for courses
-     */
-
     // EFFECTS: runs the user interface loop for commands and responses
     public static void main(String[] args) {
         ToDoList toDoList = new ToDoList();
