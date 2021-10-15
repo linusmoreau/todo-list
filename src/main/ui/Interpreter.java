@@ -28,17 +28,16 @@ public class Interpreter {
                 callCategory(scanner.nextLine().toLowerCase());
             } catch (QuitException e) {
                 break;
-            } catch (EmptyException ignored) {
+            } catch (EmptyException | BackException ignored) {
                 ;
             }
         }
     }
 
     // EFFECTS: calls the given category for dialogue
-    private void callCategory(String s) throws QuitException, EmptyException {
+    private void callCategory(String s) throws QuitException, EmptyException, BackException {
+        baseCommands(s);
         switch (s) {
-            case "quit":
-                throw new QuitException();
             case "c":   categoryCourses();
                         break;
             case "a":   categoryAssignments();
@@ -62,37 +61,37 @@ public class Interpreter {
     }
 
     // EFFECTS: displays courses and provides option dialogue
-    private void categoryCourses() throws QuitException, EmptyException {
+    private void categoryCourses() throws QuitException, EmptyException, BackException {
         displayCourses(toDoList.getCourses());
         chooseOptionCourse();
     }
 
     // EFFECTS: displays assignments and provides option dialogue
-    private void categoryAssignments() throws QuitException, EmptyException {
+    private void categoryAssignments() throws QuitException, EmptyException, BackException {
         displayAssignments(toDoList.getAssignments());
         chooseOptionAssignment();
     }
 
     // EFFECTS: displays exams and provides option dialogue
-    private void categoryExams() throws QuitException, EmptyException {
+    private void categoryExams() throws QuitException, EmptyException, BackException {
         displayExams(toDoList.getExams());
         chooseOptionExam();
     }
 
     // EFFECTS: displays tasks and provides option dialogue
-    private void categoryTasks() throws QuitException, EmptyException {
+    private void categoryTasks() throws QuitException, EmptyException, BackException {
         displayTasks(toDoList.getTasks());
         chooseOptionTask();
     }
 
     // EFFECTS: displays quotes and provides option dialogue
-    private void categoryQuotes() throws QuitException, EmptyException {
+    private void categoryQuotes() throws QuitException, EmptyException, BackException {
         displayQuotes(toDoList.getQuotes());
         chooseOptionQuote();
     }
 
     // EFFECTS: displays movies and provides option dialogue
-    private void categoryMovies() throws QuitException, EmptyException {
+    private void categoryMovies() throws QuitException, EmptyException, BackException {
         displayMovies(toDoList.getMovies());
         chooseOptionMovie();
     }
@@ -209,12 +208,11 @@ public class Interpreter {
     }
 
     // EFFECTS: conducts dialogue for options about courses
-    private void chooseOptionCourse() throws QuitException, EmptyException {
+    private void chooseOptionCourse() throws QuitException, EmptyException, BackException {
         displayCourseOptions();
         String input = scanner.nextLine().toLowerCase();
+        baseCommands(input);
         switch (input) {
-            case "quit":
-                throw new QuitException();
             case "a":   addCourse();
                         break;
             case "e":   editCourse(selectCourse());
@@ -229,12 +227,11 @@ public class Interpreter {
     }
 
     // EFFECTS: conducts dialogue for options about assignments
-    private void chooseOptionAssignment() throws QuitException, EmptyException {
+    private void chooseOptionAssignment() throws QuitException, EmptyException, BackException {
         displayOptions();
         String input = scanner.nextLine().toLowerCase();
+        baseCommands(input);
         switch (input) {
-            case "quit":
-                throw new QuitException();
             case "a":   addAssignment();
                         break;
             case "e":   editAssignment(selectAssignment(toDoList.getAssignments()));
@@ -247,12 +244,11 @@ public class Interpreter {
     }
 
     // EFFECTS: conducts dialogue for options about exams
-    private void chooseOptionExam() throws QuitException, EmptyException {
+    private void chooseOptionExam() throws QuitException, EmptyException, BackException {
         displayOptions();
         String input = scanner.nextLine().toLowerCase();
+        baseCommands(input);
         switch (input) {
-            case "quit":
-                throw new QuitException();
             case "a":   addExam();
                         break;
             case "e":   editExam(selectExam(toDoList.getExams()));
@@ -265,12 +261,11 @@ public class Interpreter {
     }
 
     // EFFECTS: conducts dialogue for options about tasks
-    private void chooseOptionTask() throws QuitException, EmptyException {
+    private void chooseOptionTask() throws QuitException, EmptyException, BackException {
         displayOptions();
         String input = scanner.nextLine().toLowerCase();
+        baseCommands(input);
         switch (input) {
-            case "quit":
-                throw new QuitException();
             case "a":   addTask();
                         break;
             case "e":   editTask(selectTask(toDoList.getTasks()));
@@ -283,57 +278,55 @@ public class Interpreter {
     }
 
     // EFFECTS: conducts dialogue for options about quotes
-    private void chooseOptionQuote() throws QuitException, EmptyException {
+    private void chooseOptionQuote() throws QuitException, EmptyException, BackException {
         displayOptions();
         String input = scanner.nextLine().toLowerCase();
+        baseCommands(input);
         switch (input) {
-            case "quit":
-                throw new QuitException();
             case "a":   addQuote();
-                break;
+                        break;
             case "e":   editQuote(selectQuote(toDoList.getQuotes()));
-                break;
+                        break;
             case "d":   deleteQuote(selectQuote(toDoList.getQuotes()));
-                break;
+                        break;
             default:    invalidInput();
-                break;
+                        break;
         }
     }
 
     // EFFECTS: conducts dialogue for options about movies
-    private void chooseOptionMovie() throws QuitException, EmptyException {
+    private void chooseOptionMovie() throws QuitException, EmptyException, BackException {
         displayOptions();
         String input = scanner.nextLine().toLowerCase();
+        baseCommands(input);
         switch (input) {
-            case "quit":
-                throw new QuitException();
             case "a":   addMovie();
-                break;
+                        break;
             case "e":   editMovie(selectMovie(toDoList.getMovies()));
-                break;
+                        break;
             case "d":   deleteMovie(selectMovie(toDoList.getMovies()));
-                break;
+                        break;
             default:    invalidInput();
-                break;
+                        break;
         }
     }
 
     // EFFECTS: displays the commands for courses category and guidance for entry
     private void displayCourseOptions() {
         System.out.println();
-        System.out.println("Options: [A]dd, [E]dit, [D]elete, [V]iew, or quit");
+        System.out.println("Options: [A]dd, [E]dit, [D]elete, [V]iew, back, or quit");
         System.out.print("Enter: ");
     }
 
     // EFFECTS: displays the basic commands and guidance for entry
     private void displayOptions() {
         System.out.println();
-        System.out.println("Options: [A]dd, [E]dit, [D]elete, or quit");
+        System.out.println("Options: [A]dd, [E]dit, [D]elete, back, or quit");
         System.out.print("Enter: ");
     }
 
     // EFFECTS: provides dialogue for editing a course's attributes
-    private void editCourse(Course course) throws QuitException, EmptyException {
+    private void editCourse(Course course) throws QuitException, EmptyException, BackException {
         System.out.println("Editable: [N]ame, [A]ssignments, [E]xams");
         System.out.print("Enter: ");
         String input = scanner.nextLine().toLowerCase();
@@ -360,12 +353,12 @@ public class Interpreter {
     }
 
     // EFFECTS: provides dialogue for modifying data about a course's assignments
-    private void modifyAssignments(Course course) throws QuitException, EmptyException {
+    private void modifyAssignments(Course course) throws QuitException, EmptyException, BackException {
+        displayAssignments(course.getAssignments());
         displayOptions();
         String input = scanner.nextLine().toLowerCase();
+        baseCommands(input);
         switch (input) {
-            case "quit":
-                throw new QuitException();
             case "a":   addAssignment(course);
                         break;
             case "e":   editAssignment(selectAssignment(course.getAssignments()));
@@ -378,12 +371,12 @@ public class Interpreter {
     }
 
     // EFFECTS: provides dialogue for modifying data about a course's exams
-    private void modifyExams(Course course) throws QuitException, EmptyException {
+    private void modifyExams(Course course) throws QuitException, EmptyException, BackException {
+        displayExams(course.getExams());
         displayOptions();
         String input = scanner.nextLine().toLowerCase();
+        baseCommands(input);
         switch (input) {
-            case "quit":
-                throw new QuitException();
             case "a":   addExam(course);
                         break;
             case "e":   editExam(selectExam(course.getExams()));
@@ -730,5 +723,15 @@ public class Interpreter {
         int day = scanner.nextInt();
         scanner.nextLine();
         return new Date(year, month, day);
+    }
+
+    // EFFECTS: checks if string corresponds to base commands and throws corresponding exception if it does
+    //          else does nothing
+    private void baseCommands(String command) throws QuitException, BackException {
+        if (command.equalsIgnoreCase("quit")) {
+            throw new QuitException();
+        } else if (command.equalsIgnoreCase("back")) {
+            throw new BackException();
+        }
     }
 }
