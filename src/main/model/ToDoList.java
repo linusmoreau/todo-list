@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 
+// To-do list for tracking various items
 public class ToDoList {
     private final CourseList courses;
     private final ArrayList<Assignment> assignments;
@@ -10,6 +11,7 @@ public class ToDoList {
     private final ArrayList<Quote> quotes;
     private final ArrayList<Movie> movies;
 
+    // EFFECTS: create to-do list which tracks various items
     public ToDoList() {
         courses = new CourseList();
         assignments = new ArrayList<>();

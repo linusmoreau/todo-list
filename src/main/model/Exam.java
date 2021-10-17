@@ -1,5 +1,6 @@
 package model;
 
+// Course exams set on a date
 public class Exam implements Comparable {
     private Date date;
     private Course course;

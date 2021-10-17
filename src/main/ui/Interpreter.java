@@ -5,6 +5,7 @@ import model.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+// Provides user dialogue and interprets user inputs
 public class Interpreter {
     private final ToDoList toDoList;
     private final Scanner scanner;

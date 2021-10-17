@@ -1,5 +1,6 @@
 package model;
 
+// A task with a short name and possible associated date and description
 public class Task implements Comparable {
     private String name;
     private Date date;

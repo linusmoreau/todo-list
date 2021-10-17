@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 
+// Course with a name, assignments, and exams
 public class Course {
     private String name;
     private final ArrayList<Assignment> assignments;

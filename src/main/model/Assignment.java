@@ -1,5 +1,6 @@
 package model;
 
+// Course assignments with associated names and, optionally, a due date
 public class Assignment implements Comparable {
     private String name;
     private Date dueDate;

@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.Objects;
 
+// List of courses that can only contain courses with unique names
 public class CourseList extends ArrayList<Course> {
 
     // MODIFIES: this
@@ -12,7 +13,7 @@ public class CourseList extends ArrayList<Course> {
     }
 
     // MODIFIES: this
-    // EFFECTS:  adds course if no existing courses have the same name, otherwise throws exception
+    // EFFECTS:  adds course if no existing courses have the same name and returns true, else returns false
     public boolean add(Course course) {
         for (Course c : this) {
             if (Objects.equals(c.getName(), course.getName())) {

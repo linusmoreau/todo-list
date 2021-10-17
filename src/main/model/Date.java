@@ -1,5 +1,6 @@
 package model;
 
+// Date with year, month, and day which can also exist unset
 public class Date {
     private boolean isSet;
     private int year;

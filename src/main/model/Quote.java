@@ -1,5 +1,6 @@
 package model;
 
+// Quote with its contents and an author
 public class Quote {
     private String quote;
     private String author;
