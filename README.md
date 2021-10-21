@@ -24,3 +24,5 @@ This application will be used by myself, but it's available if you or anyone wou
 - I want to be able to delete items from my to-do list
 - I want to be able to see the items on my to-do list organized based on subject and due date
 - I want to be able to view items for specific subjects
+- I want to be able to save my to-do list to file
+- I want to be able to be able to load my to-do list from file
