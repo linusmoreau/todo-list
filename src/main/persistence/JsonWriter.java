@@ -6,6 +6,7 @@ import org.json.JSONObject;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 
+// Represents the writer for translating model data to JSON and writing to file
 public class JsonWriter {
     private static final int TAB = 4;
     private PrintWriter writer;

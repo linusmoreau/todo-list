@@ -10,6 +10,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
 
+// Represents the reader for reading JSON from file and initializing based on the loaded data
 public class JsonReader {
     private final String source;
 
