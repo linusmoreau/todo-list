@@ -1,7 +1,10 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 // Course assignments with associated names and, optionally, a due date
-public class Assignment implements Comparable {
+public class Assignment implements Comparable, Writable {
     private String name;
     private Date dueDate;
     private Course course;
@@ -52,5 +55,14 @@ public class Assignment implements Comparable {
     @Override
     public int compareTo(Object o) {
         return (Integer.compare(this.getDueDate().comparator(), ((Assignment) o).getDueDate().comparator()));
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject object = new JSONObject();
+        object.put("name", name);
+        object.put("dueDate", dueDate.toJson());
+        object.put("course", course.getName());
+        return object;
     }
 }

@@ -1,43 +1,80 @@
 package ui;
 
 import model.*;
+import persistence.JsonReader;
+import persistence.JsonWriter;
+import ui.exceptions.BackException;
+import ui.exceptions.EmptyException;
+import ui.exceptions.QuitException;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 // Provides user dialogue and interprets user inputs
-public class Interpreter {
-    private final ToDoList toDoList;
+public class ToDoListApp {
+    private static final String FILE_LOCATION = "./data/todolist.json";
     private final Scanner scanner;
     private final Sorter sorter;
+    private final JsonWriter jsonWriter;
+    private final JsonReader jsonReader;
+    private ToDoList toDoList;
 
     // MODIFIES: this
     // EFFECTS: makes dialogue interpreter for console-based user interface
-    public Interpreter(ToDoList toDoList) {
+    public ToDoListApp(ToDoList toDoList) {
         this.toDoList = toDoList;
         scanner = new Scanner(System.in);
         sorter = new Sorter();
+        jsonReader = new JsonReader(FILE_LOCATION);
+        jsonWriter = new JsonWriter(FILE_LOCATION);
+        System.out.println("Welcome to the To-Do List!");
+        chooseCategory();
+    }
+
+    // EFFECTS: displays the commands for courses category and guidance for entry
+    private void displayCourseOptions() {
+        System.out.println();
+        System.out.println("Options: [A]dd, [E]dit, [D]elete, [V]iew, back, or quit");
+        System.out.print("Enter: ");
+    }
+
+    // EFFECTS: displays the basic commands and guidance for entry
+    private void displayOptions() {
+        System.out.println();
+        System.out.println("Options: [A]dd, [E]dit, [D]elete, back, or quit");
+        System.out.print("Enter: ");
+    }
+
+    // EFFECTs: displays options for the main menu
+    private void displayMenu() {
+        System.out.println();
+        System.out.println("Menu: [C]ourses, [A]ssignments, [E]xams, [T]asks, [Q]uotes, [M]ovies, "
+                + "[S]ave, [L]oad, or quit");
+        System.out.print("Enter: ");
     }
 
     // EFFECTS: receives and provides display and options for given category
     public void chooseCategory() {
         while (true) {
-            System.out.println();
-            System.out.println("Menu: [C]ourses, [A]ssignments, [E]xams, [T]asks, [Q]uotes, [M]ovies, or quit");
-            System.out.print("Enter: ");
+            displayMenu();
+            String input = scanner.nextLine().toLowerCase();
             try {
-                callCategory(scanner.nextLine().toLowerCase());
+                baseCommands(input);
+                if (!saveCommands(input)) {
+                    callCategory(input);
+                }
             } catch (QuitException e) {
                 break;
             } catch (EmptyException | BackException ignored) {
-                ;
+                // pass
             }
         }
     }
 
     // EFFECTS: calls the given category for dialogue
     private void callCategory(String s) throws QuitException, EmptyException, BackException {
-        baseCommands(s);
         switch (s) {
             case "c":   categoryCourses();
                         break;
@@ -59,6 +96,29 @@ public class Interpreter {
     // EFFECTS: dialogue for invalid input
     private void invalidInput() {
         System.out.println("Invalid input!");
+    }
+
+    // EFFECTS: saves the to-do list to file
+    private void saveToDoList() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(toDoList);
+            jsonWriter.close();
+            System.out.println("Saved to-do list to " + FILE_LOCATION);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + FILE_LOCATION);
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads to-do list from file
+    private void loadToDoList() {
+        try {
+            toDoList = jsonReader.read();
+            System.out.println("Loaded to-do list from " + FILE_LOCATION);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + FILE_LOCATION);
+        }
     }
 
     // EFFECTS: displays courses and provides option dialogue
@@ -310,20 +370,6 @@ public class Interpreter {
             default:    invalidInput();
                         break;
         }
-    }
-
-    // EFFECTS: displays the commands for courses category and guidance for entry
-    private void displayCourseOptions() {
-        System.out.println();
-        System.out.println("Options: [A]dd, [E]dit, [D]elete, [V]iew, back, or quit");
-        System.out.print("Enter: ");
-    }
-
-    // EFFECTS: displays the basic commands and guidance for entry
-    private void displayOptions() {
-        System.out.println();
-        System.out.println("Options: [A]dd, [E]dit, [D]elete, back, or quit");
-        System.out.print("Enter: ");
     }
 
     // EFFECTS: provides dialogue for editing a course's attributes
@@ -734,5 +780,16 @@ public class Interpreter {
         } else if (command.equalsIgnoreCase("back")) {
             throw new BackException();
         }
+    }
+
+    private boolean saveCommands(String command) {
+        if (command.equalsIgnoreCase("s")) {
+            saveToDoList();
+        } else if (command.equalsIgnoreCase("l")) {
+            loadToDoList();
+        } else {
+            return false;
+        }
+        return true;
     }
 }

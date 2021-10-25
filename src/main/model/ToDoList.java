@@ -1,9 +1,13 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.ArrayList;
 
 // To-do list for tracking various items
-public class ToDoList {
+public class ToDoList implements Writable {
     private final CourseList courses;
     private final ArrayList<Assignment> assignments;
     private final ArrayList<Exam> exams;
@@ -163,5 +167,62 @@ public class ToDoList {
 
     public ArrayList<Movie> getMovies() {
         return movies;
+    }
+
+    // EFFECTS: returns JSONArray of assignments
+    private JSONArray assignmentsToJson() {
+        JSONArray array = new JSONArray();
+        for (Assignment assignment : assignments) {
+            array.put(assignment.toJson());
+        }
+        return array;
+    }
+
+    // EFFECTS: returns JSONArray of exams
+    private JSONArray examsToJson() {
+        JSONArray array = new JSONArray();
+        for (Exam exam : exams) {
+            array.put(exam.toJson());
+        }
+        return array;
+    }
+
+    // EFFECTS: returns JSONArray of tasks
+    private JSONArray tasksToJson() {
+        JSONArray array = new JSONArray();
+        for (Task task : tasks) {
+            array.put(task.toJson());
+        }
+        return array;
+    }
+
+    // EFFECTS: returns JSONArray of quotes
+    private JSONArray quotesToJson() {
+        JSONArray array = new JSONArray();
+        for (Quote quote : quotes) {
+            array.put(quote.toJson());
+        }
+        return array;
+    }
+
+    // EFFECTS: returns JSONArray of movies
+    private JSONArray moviesToJson() {
+        JSONArray array = new JSONArray();
+        for (Movie movie : movies) {
+            array.put(movie.toJson());
+        }
+        return array;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject object = new JSONObject();
+        object.put("courses", courses.toJson());
+        object.put("assignments", assignmentsToJson());
+        object.put("exams", examsToJson());
+        object.put("tasks", tasksToJson());
+        object.put("quotes", quotesToJson());
+        object.put("movies", moviesToJson());
+        return object;
     }
 }

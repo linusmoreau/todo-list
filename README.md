@@ -26,3 +26,6 @@ This application will be used by myself, but it's available if you or anyone wou
 - I want to be able to view items for specific subjects
 - I want to be able to save my to-do list to file
 - I want to be able to be able to load my to-do list from file
+
+### Citations
+- Data persistence is modelled off of the JsonSerializationDemo repository provided by Paul Carter.

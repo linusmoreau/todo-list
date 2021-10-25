@@ -15,6 +15,7 @@ public class CourseListTest {
 
     @Test
     public void testFind() {
+        assertNull(courseList.get("CPSC 210"));
         courseList.add(new Course("CPSC 210"));
         Course math = new Course("MATH 200");
         courseList.add(math);

@@ -1,7 +1,10 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 // Course exams set on a date
-public class Exam implements Comparable {
+public class Exam implements Comparable, Writable {
     private Date date;
     private Course course;
 
@@ -34,5 +37,13 @@ public class Exam implements Comparable {
     @Override
     public int compareTo(Object o) {
         return (Integer.compare(this.getDate().comparator(), ((Exam) o).getDate().comparator()));
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject object = new JSONObject();
+        object.put("date", date.toJson());
+        object.put("course", course.getName());
+        return object;
     }
 }

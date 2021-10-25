@@ -1,7 +1,10 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 // Quote with its contents and an author
-public class Quote {
+public class Quote implements Writable {
     private String quote;
     private String author;
 
@@ -26,5 +29,13 @@ public class Quote {
 
     public void setAuthor(String author) {
         this.author = author;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject object = new JSONObject();
+        object.put("quote", quote);
+        object.put("author", author);
+        return object;
     }
 }

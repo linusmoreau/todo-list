@@ -1,9 +1,12 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.ArrayList;
 
 // Course with a name, assignments, and exams
-public class Course {
+public class Course implements Writable {
     private String name;
     private final ArrayList<Assignment> assignments;
     private final ArrayList<Exam> exams;
@@ -56,5 +59,12 @@ public class Course {
 
     public ArrayList<Exam> getExams() {
         return exams;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject object = new JSONObject();
+        object.put("name", name);
+        return object;
     }
 }

@@ -1,5 +1,7 @@
 package model;
 
+import org.json.JSONArray;
+
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -32,5 +34,14 @@ public class CourseList extends ArrayList<Course> {
             }
         }
         return null;
+    }
+
+    // EFFECTS: returns this as a JSON array
+    public JSONArray toJson() {
+        JSONArray array = new JSONArray();
+        for (Course course : this) {
+            array.put(course.toJson());
+        }
+        return array;
     }
 }

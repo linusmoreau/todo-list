@@ -1,7 +1,10 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 // Date with year, month, and day which can also exist unset
-public class Date {
+public class Date implements Writable {
     private boolean isSet;
     private int year;
     private int month;
@@ -77,5 +80,17 @@ public class Date {
         } else {
             return 2_147_483_647;
         }
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject object = new JSONObject();
+        object.put("isSet", isSet);
+        if (isSet) {
+            object.put("year", year);
+            object.put("month", month);
+            object.put("day", day);
+        }
+        return object;
     }
 }
