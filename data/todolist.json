@@ -1,0 +1,53 @@
+{
+    "movies": [{
+        "bookmark": "",
+        "name": "Hot Fuzz"
+    }],
+    "courses": [
+        {"name": "CPSC 210"},
+        {"name": "MATH 200"},
+        {"name": "GEOG 250"},
+        {"name": "ASTR 200"},
+        {"name": "STAT 200"}
+    ],
+    "assignments": [
+        {
+            "dueDate": {
+                "month": 11,
+                "isSet": true,
+                "year": 2021,
+                "day": 19
+            },
+            "name": "Term Project Phase 3",
+            "course": "CPSC 210"
+        },
+        {
+            "dueDate": {
+                "month": 10,
+                "isSet": true,
+                "year": 2021,
+                "day": 31
+            },
+            "name": "Lecture Ticket",
+            "course": "CPSC 210"
+        }
+    ],
+    "exams": [{
+        "date": {
+            "month": 11,
+            "isSet": true,
+            "year": 2021,
+            "day": 26
+        },
+        "course": "MATH 200"
+    }],
+    "tasks": [{
+        "date": {"isSet": false},
+        "name": "Make profile picture",
+        "desc": ""
+    }],
+    "quotes": [{
+        "quote": "We've had one breakfast, yes. But what about second breakfast?",
+        "author": "J.R.R. Tolkien"
+    }]
+}

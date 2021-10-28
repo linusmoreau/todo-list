@@ -1,0 +1,45 @@
+{
+    "movies": [{
+        "bookmark": "",
+        "name": "Dr. Strangelove"
+    }],
+    "courses": [
+        {"name": "CPSC 210"},
+        {"name": "MATH 200"}
+    ],
+    "assignments": [
+        {
+            "dueDate": {
+                "month": 10,
+                "isSet": true,
+                "year": 2021,
+                "day": 29
+            },
+            "name": "Phase 2",
+            "course": "CPSC 210"
+        },
+        {
+            "dueDate": {"isSet": false},
+            "name": "Lecture Ticket",
+            "course": "CPSC 210"
+        }
+    ],
+    "exams": [{
+        "date": {
+            "month": 10,
+            "isSet": true,
+            "year": 2021,
+            "day": 27
+        },
+        "course": "CPSC 210"
+    }],
+    "tasks": [{
+        "date": {"isSet": false},
+        "name": "Do IT!",
+        "desc": ""
+    }],
+    "quotes": [{
+        "quote": "Photography is a tough life: you can be taken, framed, exposed, shot, captured, and hung all in the same day.",
+        "author": "Anonymous"
+    }]
+}
