@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 // Provides user dialogue and interprets user inputs
-public class ToDoListApp {
+public class ToDoListAppConsole {
     private static final String FILE_LOCATION = "./data/todolist.json";
     private final Scanner scanner;
     private final Sorter sorter;
@@ -23,7 +23,7 @@ public class ToDoListApp {
 
     // MODIFIES: this
     // EFFECTS: makes dialogue interpreter for console-based user interface
-    public ToDoListApp(ToDoList toDoList) {
+    public ToDoListAppConsole(ToDoList toDoList) {
         this.toDoList = toDoList;
         scanner = new Scanner(System.in);
         sorter = new Sorter();
