@@ -22,7 +22,7 @@ public class ToDoListAppGUI extends JFrame implements ActionListener {
     private final JsonReader jsonReader;
     private ToDoList toDoList;
     private Container allPane;
-    private JPanel coursePanel;
+    private CoursePanel coursePanel;
 
     // MODIFIES: this
     // EFFECTS: provides graphical user interface for managing to-do list
@@ -95,9 +95,8 @@ public class ToDoListAppGUI extends JFrame implements ActionListener {
     }
 
     private void loadUpdate() {
-        updateCoursePanel();
+        coursePanel.updateCourses(toDoList);
     }
-
 
     // EFFECTS: Initializes tabbed pane menu
     private void initTabbedPane() {
@@ -130,28 +129,8 @@ public class ToDoListAppGUI extends JFrame implements ActionListener {
     }
 
     private JComponent makeCoursePanel() {
-        coursePanel = new JPanel();
-        coursePanel.setLayout(new BoxLayout(coursePanel, BoxLayout.Y_AXIS));
+        coursePanel = new CoursePanel(toDoList);
         return new JScrollPane(coursePanel);
-    }
-
-    private void updateCoursePanel() {
-        coursePanel.removeAll();
-        for (Course course : toDoList.getCourses()) {
-            coursePanel.add(makeCourseComponent(course));
-            coursePanel.add(Box.createVerticalGlue());
-        }
-        coursePanel.updateUI();
-    }
-
-    private JComponent makeCourseComponent(Course course) {
-        JPanel panel = new JPanel();
-        panel.add(new JTextArea(course.getName()));
-        panel.add(new JTextArea("Number of Assignments: " + course.getAssignments().size()));
-        panel.add(new JTextArea("Number of Exams: " + course.getExams().size()));
-        panel.setBackground(Color.lightGray);
-        panel.setPreferredSize(new Dimension(getWidth() * 3 / 4, 128));
-        return panel;
     }
 
     private JComponent makeAssignmentPanel() {
