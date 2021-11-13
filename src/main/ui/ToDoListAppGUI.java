@@ -1,5 +1,6 @@
 package ui;
 
+import model.Course;
 import model.Sorter;
 import model.ToDoList;
 import persistence.JsonReader;
@@ -20,9 +21,8 @@ public class ToDoListAppGUI extends JFrame implements ActionListener {
     private final JsonWriter jsonWriter;
     private final JsonReader jsonReader;
     private ToDoList toDoList;
-    private JTabbedPane tabbedPane;
-    private JPanel sidePane;
     private Container allPane;
+    private JPanel coursePanel;
 
     // MODIFIES: this
     // EFFECTS: provides graphical user interface for managing to-do list
@@ -33,12 +33,12 @@ public class ToDoListAppGUI extends JFrame implements ActionListener {
         jsonReader = new JsonReader(FILE_LOCATION);
         jsonWriter = new JsonWriter(FILE_LOCATION);
 
-        initWidgets();
-
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        ImageIcon img = new ImageIcon("./data/icons8-todo-list-96.png");
+        setIconImage(img.getImage());
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setUndecorated(true);
         setVisible(true);
+        initWidgets();
     }
 
     @Override
@@ -54,39 +54,22 @@ public class ToDoListAppGUI extends JFrame implements ActionListener {
 
     // EFFECTS: Initializes side pane containing save and load buttons
     private void initSidePane() {
-        sidePane = new JPanel();
-        sidePane.setPreferredSize(new Dimension(200, 200));
-        sidePane.setBackground(Color.blue);
-        allPane.add(sidePane, BorderLayout.WEST);
-    }
+        JPanel toolbar = new JPanel();
 
-    // EFFECTS: Initializes tabbed pane menu
-    private void initTabbedPane() {
-        tabbedPane = new JTabbedPane();
+        JButton saveButton = new JButton("Save");
+        saveButton.addActionListener(e -> saveToDoList());
+        toolbar.add(saveButton);
 
-        tabbedPane.addTab("Courses", null, makePanel(),"Courses with associated assignments and exams");
-        tabbedPane.setMnemonicAt(0, KeyEvent.VK_C);
+        JButton loadButton = new JButton("Load");
+        loadButton.addActionListener(e -> loadToDoList());
+        toolbar.add(loadButton);
 
-        tabbedPane.addTab("Assignments", null, makePanel(),"Assignments sorted by due date");
-        tabbedPane.setMnemonicAt(1, KeyEvent.VK_A);
+        JButton quitButton = new JButton("Quit");
+        quitButton.addActionListener(e -> System.exit(0));
+        toolbar.add(quitButton);
 
-        tabbedPane.addTab("Exams", null, makePanel(),"Exams sorted by date");
-        tabbedPane.setMnemonicAt(2, KeyEvent.VK_E);
-
-        tabbedPane.addTab("Tasks", null, makePanel(),"Extra-curricular tasks");
-        tabbedPane.setMnemonicAt(3, KeyEvent.VK_T);
-
-        tabbedPane.addTab("Quotes", null, makePanel(),"Inspiring and interesting quotes");
-        tabbedPane.setMnemonicAt(4, KeyEvent.VK_Q);
-
-        tabbedPane.addTab("Movies", null, makePanel(),"Inspiring and interesting quotes");
-        tabbedPane.setMnemonicAt(5, KeyEvent.VK_M);
-
-        allPane.add(tabbedPane, BorderLayout.CENTER);
-    }
-
-    private JComponent makePanel() {
-        return new JPanel();
+        toolbar.setBackground(Color.lightGray);
+        allPane.add(toolbar, BorderLayout.NORTH);
     }
 
     // EFFECTS: saves the to-do list to file
@@ -105,8 +88,89 @@ public class ToDoListAppGUI extends JFrame implements ActionListener {
     private void loadToDoList() {
         try {
             toDoList = jsonReader.read();
+            loadUpdate();
         } catch (IOException e) {
             // File not found
         }
+    }
+
+    private void loadUpdate() {
+        updateCoursePanel();
+    }
+
+
+    // EFFECTS: Initializes tabbed pane menu
+    private void initTabbedPane() {
+        JTabbedPane tabbedPane = new JTabbedPane();
+        allPane.add(tabbedPane, BorderLayout.CENTER);
+
+        tabbedPane.addTab("Courses", null, makeCoursePanel(),
+                "Courses with associated assignments and exams");
+        tabbedPane.setMnemonicAt(0, KeyEvent.VK_C);
+
+        tabbedPane.addTab("Assignments", null, makeAssignmentPanel(),
+                "Assignments sorted by due date");
+        tabbedPane.setMnemonicAt(1, KeyEvent.VK_A);
+
+        tabbedPane.addTab("Exams", null, makeExamsPanel(),
+                "Exams sorted by date");
+        tabbedPane.setMnemonicAt(2, KeyEvent.VK_E);
+
+        tabbedPane.addTab("Tasks", null, makeTasksPanel(),
+                "Extra-curricular tasks");
+        tabbedPane.setMnemonicAt(3, KeyEvent.VK_T);
+
+        tabbedPane.addTab("Quotes", null, makeQuotesPanel(),
+                "Inspiring and interesting quotes");
+        tabbedPane.setMnemonicAt(4, KeyEvent.VK_Q);
+
+        tabbedPane.addTab("Movies", null, makeMoviesPanel(),
+                "Inspiring and interesting quotes");
+        tabbedPane.setMnemonicAt(5, KeyEvent.VK_M);
+    }
+
+    private JComponent makeCoursePanel() {
+        coursePanel = new JPanel();
+        coursePanel.setLayout(new BoxLayout(coursePanel, BoxLayout.Y_AXIS));
+        return new JScrollPane(coursePanel);
+    }
+
+    private void updateCoursePanel() {
+        coursePanel.removeAll();
+        for (Course course : toDoList.getCourses()) {
+            coursePanel.add(makeCourseComponent(course));
+            coursePanel.add(Box.createVerticalGlue());
+        }
+        coursePanel.updateUI();
+    }
+
+    private JComponent makeCourseComponent(Course course) {
+        JPanel panel = new JPanel();
+        panel.add(new JTextArea(course.getName()));
+        panel.add(new JTextArea("Number of Assignments: " + course.getAssignments().size()));
+        panel.add(new JTextArea("Number of Exams: " + course.getExams().size()));
+        panel.setBackground(Color.lightGray);
+        panel.setPreferredSize(new Dimension(getWidth() * 3 / 4, 128));
+        return panel;
+    }
+
+    private JComponent makeAssignmentPanel() {
+        return new JPanel();
+    }
+
+    private JComponent makeExamsPanel() {
+        return new JPanel();
+    }
+
+    private JComponent makeTasksPanel() {
+        return new JPanel();
+    }
+
+    private JComponent makeQuotesPanel() {
+        return new JPanel();
+    }
+
+    private JComponent makeMoviesPanel() {
+        return new JPanel();
     }
 }

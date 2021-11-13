@@ -29,3 +29,4 @@ This application will be used by myself, but it's available if you or anyone wou
 
 ### Citations
 - Data persistence is modelled off of the JsonSerializationDemo repository provided by Paul Carter.
+- Application icon is from icons8.com
