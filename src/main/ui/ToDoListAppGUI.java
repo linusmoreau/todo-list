@@ -1,6 +1,5 @@
 package ui;
 
-import model.Course;
 import model.Sorter;
 import model.ToDoList;
 import persistence.JsonReader;
@@ -8,14 +7,12 @@ import persistence.JsonWriter;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
 // Represents window where all user interface is displayed
-public class ToDoListAppGUI extends JFrame implements ActionListener {
+public class ToDoListAppGUI extends JFrame {
     private static final String FILE_LOCATION = "./data/todolist.json";
     private final Sorter sorter;
     private final JsonWriter jsonWriter;
@@ -39,10 +36,6 @@ public class ToDoListAppGUI extends JFrame implements ActionListener {
         setUndecorated(true);
         setVisible(true);
         initWidgets();
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
     }
 
     // EFFECTS: Initializes all widgets
@@ -129,7 +122,7 @@ public class ToDoListAppGUI extends JFrame implements ActionListener {
     }
 
     private JComponent makeCoursePanel() {
-        coursePanel = new CoursePanel(toDoList);
+        coursePanel = new CoursePanel(toDoList, getWidth() * 3 / 4);
         return new JScrollPane(coursePanel);
     }
 
