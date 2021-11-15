@@ -87,6 +87,8 @@ public class ToDoListAppGUI extends JFrame {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: updates coursePanel to match the toDoList following a load from file
     private void loadUpdate() {
         coursePanel.updateCourses(toDoList);
     }
@@ -121,27 +123,33 @@ public class ToDoListAppGUI extends JFrame {
         tabbedPane.setMnemonicAt(5, KeyEvent.VK_M);
     }
 
+    // EFFECTS: makes the course panel within a scroll pane
     private JComponent makeCoursePanel() {
         coursePanel = new CoursePanel(toDoList, getWidth() * 3 / 4);
         return new JScrollPane(coursePanel);
     }
 
+    // EFFECTS: makes assignment panel
     private JComponent makeAssignmentPanel() {
         return new JPanel();
     }
 
+    // EFFECTS: makes exam panel
     private JComponent makeExamsPanel() {
         return new JPanel();
     }
 
+    // EFFECTS: makes task panel
     private JComponent makeTasksPanel() {
         return new JPanel();
     }
 
+    // EFFECTS: makes quote panel
     private JComponent makeQuotesPanel() {
         return new JPanel();
     }
 
+    // EFFECTS: makes movie panel
     private JComponent makeMoviesPanel() {
         return new JPanel();
     }
