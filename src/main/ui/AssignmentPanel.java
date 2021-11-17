@@ -23,7 +23,7 @@ public class AssignmentPanel extends BanneredPanel {
 
     public void update(ToDoList toDoList) {
         this.toDoList = toDoList;
-        assignmentListPanel.update(toDoList.getAssignments());
+        assignmentListPanel.update(toDoList, toDoList.getAssignments());
     }
 
     public void updateAll() {
@@ -31,12 +31,19 @@ public class AssignmentPanel extends BanneredPanel {
     }
 
     private void add() {
-        JOptionAssignment panel = new JOptionAssignment(toDoList.getCourses().getNames());
-        if (panel.getConfirmed()) {
-            Assignment assignment = new Assignment(
-                    panel.getName(), toDoList.getCourses().get(panel.getCourseName()));
-            toDoList.add(assignment);
-            updateAll();
+        if (toDoList.getCourses().size() > 0) {
+            JOptionAssignment panel = new JOptionAssignment(toDoList.getCourses().getNames());
+            if (panel.getConfirmed()) {
+                Assignment assignment = new Assignment(
+                        panel.getName(), toDoList.getCourses().get(panel.getCourseName()));
+                toDoList.add(assignment);
+                updateAll();
+            }
+        } else {
+            JOptionPane.showMessageDialog(frame,
+                    "Assignments can only be added to existing courses. Currently there are no courses.",
+                    "Add assignment warning",
+                    JOptionPane.WARNING_MESSAGE);
         }
     }
 }

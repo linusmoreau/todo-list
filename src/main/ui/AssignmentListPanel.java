@@ -1,6 +1,8 @@
 package ui;
 
 import model.Assignment;
+import model.Course;
+import model.ToDoList;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,7 +14,8 @@ public class AssignmentListPanel extends ListPanel {
         super(frame);
     }
 
-    public void update(ArrayList<Assignment> assignments) {
+    public void update(ToDoList toDoList, ArrayList<Assignment> assignments) {
+        this.toDoList = toDoList;
         removeAll();
         for (Assignment assignment : assignments) {
             add(makeComponent(assignment));
@@ -52,13 +55,28 @@ public class AssignmentListPanel extends ListPanel {
 
     private JPanel makeButtonPanel(Assignment assignment) {
         JPanel panel = new JPanel();
-//        JButton editButton = new JButton("Edit");
-//        editButton.addActionListener(e -> edit(assignment));
-//        panel.add(editButton);
-//
-//        JButton deleteButton = new JButton("Delete");
-//        deleteButton.addActionListener(e -> delete(assignment));
-//        panel.add(deleteButton);
+        JButton editButton = new JButton("Edit");
+        editButton.addActionListener(e -> edit(assignment));
+        panel.add(editButton);
+
+        JButton deleteButton = new JButton("Delete");
+        deleteButton.addActionListener(e -> delete(assignment));
+        panel.add(deleteButton);
         return panel;
+    }
+
+    private void edit(Assignment assignment) {
+        JOptionAssignment panel = new JOptionAssignment(
+                toDoList.getCourses().getNames(), assignment.getName(), assignment.getCourse().getName());
+        if (panel.getConfirmed()) {
+            assignment.setName(panel.getName());
+            assignment.setCourse(toDoList.getCourses().get(panel.getCourseName()));
+            frame.updateAll();
+        }
+    }
+
+    private void delete(Assignment assignment) {
+        toDoList.remove(assignment);
+        frame.updateAll();
     }
 }
