@@ -20,6 +20,7 @@ public class ToDoListAppGUI extends JFrame {
     private ToDoList toDoList;
     private Container allPane;
     private CoursePanel coursePanel;
+    private AssignmentPanel assignmentPanel;
 
     // MODIFIES: this
     // EFFECTS: provides graphical user interface for managing to-do list
@@ -41,12 +42,12 @@ public class ToDoListAppGUI extends JFrame {
     // EFFECTS: Initializes all widgets
     private void initWidgets() {
         allPane = getContentPane();
-        initSidePane();
+        initToolbar();
         initTabbedPane();
     }
 
     // EFFECTS: Initializes side pane containing save and load buttons
-    private void initSidePane() {
+    private void initToolbar() {
         JPanel toolbar = new JPanel();
 
         JButton saveButton = new JButton("Save");
@@ -81,16 +82,17 @@ public class ToDoListAppGUI extends JFrame {
     private void loadToDoList() {
         try {
             toDoList = jsonReader.read();
-            loadUpdate();
+            updateAll();
         } catch (IOException e) {
             // File not found
         }
     }
 
     // MODIFIES: this
-    // EFFECTS: updates coursePanel to match the toDoList following a load from file
-    private void loadUpdate() {
-        coursePanel.updateCourses(toDoList);
+    // EFFECTS: updates displays to match changes in to-do list
+    protected void updateAll() {
+        coursePanel.update(toDoList);
+        assignmentPanel.update(toDoList);
     }
 
     // EFFECTS: Initializes tabbed pane menu
@@ -125,13 +127,14 @@ public class ToDoListAppGUI extends JFrame {
 
     // EFFECTS: makes the course panel within a scroll pane
     private JComponent makeCoursePanel() {
-        coursePanel = new CoursePanel(toDoList, getWidth() * 3 / 4);
+        coursePanel = new CoursePanel(toDoList, getWidth(), this);
         return new JScrollPane(coursePanel);
     }
 
     // EFFECTS: makes assignment panel
     private JComponent makeAssignmentPanel() {
-        return new JPanel();
+        assignmentPanel = new AssignmentPanel(toDoList, getWidth(), this);
+        return new JScrollPane(assignmentPanel);
     }
 
     // EFFECTS: makes exam panel

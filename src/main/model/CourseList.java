@@ -44,4 +44,13 @@ public class CourseList extends ArrayList<Course> {
         }
         return array;
     }
+
+    // EFFECTS: returns course names
+    public String[] getNames() {
+        String[] array = new String[this.size()];
+        for (int i = 0; i < this.size(); i++) {
+            array[i] = this.get(i).getName();
+        }
+        return array;
+    }
 }
