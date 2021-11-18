@@ -1,29 +1,31 @@
 package ui;
 
 import model.Assignment;
-import model.Course;
 import model.ToDoList;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+// Represents list panel for assignments
 public class AssignmentListPanel extends ListPanel {
 
+    // EFFECTS: constructs list panel for assignments
     public AssignmentListPanel(ToDoListAppGUI frame) {
         super(frame);
     }
 
+    // EFFECTS: updates assignment display to match given assignments
     public void update(ToDoList toDoList, ArrayList<Assignment> assignments) {
         this.toDoList = toDoList;
         removeAll();
         for (Assignment assignment : assignments) {
             add(makeComponent(assignment));
-            add(Box.createRigidArea(new Dimension(0, 16)));
         }
         updateUI();
     }
 
+    // EFFECTS: makes panel for the given assignment
     private JComponent makeComponent(Assignment assignment) {
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
@@ -39,32 +41,38 @@ public class AssignmentListPanel extends ListPanel {
         return panel;
     }
 
+    // EFFECTS: makes panel for text displaying assignment info
     private JPanel makeTextPanel(Assignment assignment) {
         JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout(FlowLayout.LEADING, 16, 8));
 
-        JLabel name = new JLabel(assignment.getName());
-        name.setPreferredSize(new Dimension(256, 24));
-        panel.add(name);
+        JLabel nameLabel = new JLabel(assignment.getName());
+        JLabel courseLabel = new JLabel(assignment.getCourse().getName());
 
-        JLabel course = new JLabel(assignment.getCourse().getName());
-        panel.add(course);
+        nameLabel.setFont(ToDoListAppGUI.DEFAULT_FONT);
+        courseLabel.setFont(ToDoListAppGUI.DEFAULT_FONT);
+        nameLabel.setPreferredSize(new Dimension(256, nameLabel.getPreferredSize().height));
+
+        panel.add(nameLabel);
+        panel.add(courseLabel);
 
         return panel;
     }
 
+    // EFFECTS: makes panel for buttons allowing for editing and deletion
     private JPanel makeButtonPanel(Assignment assignment) {
         JPanel panel = new JPanel();
         JButton editButton = new JButton("Edit");
-        editButton.addActionListener(e -> edit(assignment));
-        panel.add(editButton);
-
         JButton deleteButton = new JButton("Delete");
+        editButton.addActionListener(e -> edit(assignment));
         deleteButton.addActionListener(e -> delete(assignment));
+        panel.add(editButton);
         panel.add(deleteButton);
         return panel;
     }
 
+    // MODIFIES: toDoList
+    // EFFECTS:  makes changes to assignment, affecting the model and rest of GUI
     private void edit(Assignment assignment) {
         JOptionAssignment panel = new JOptionAssignment(
                 toDoList.getCourses().getNames(), assignment.getName(), assignment.getCourse().getName());
@@ -75,6 +83,8 @@ public class AssignmentListPanel extends ListPanel {
         }
     }
 
+    // MODIFIES: toDoList
+    // EFFECTS: deletes assignment, affecting the odel and rest of GUI
     private void delete(Assignment assignment) {
         toDoList.remove(assignment);
         frame.updateAll();

@@ -13,6 +13,8 @@ import java.io.IOException;
 
 // Represents window where all user interface is displayed
 public class ToDoListAppGUI extends JFrame {
+    protected static final String FONT = "Monospaced";
+    protected static final Font DEFAULT_FONT = new Font(ToDoListAppGUI.FONT, Font.PLAIN, 16);
     private static final String FILE_LOCATION = "./data/todolist.json";
     private final Sorter sorter;
     private final JsonWriter jsonWriter;

@@ -23,5 +23,9 @@ public class CourseListTest {
         assertEquals(3, courseList.size());
         assertEquals(math, courseList.get("MATH 200"));
         assertNull(courseList.get("GEOG 250"));
+
+        assertEquals("CPSC 210", courseList.getNames()[0]);
+        assertEquals("MATH 200", courseList.getNames()[1]);
+        assertEquals("STAT 200", courseList.getNames()[2]);
     }
 }

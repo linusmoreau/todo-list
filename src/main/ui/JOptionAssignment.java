@@ -5,20 +5,24 @@ import model.Date;
 import javax.swing.*;
 import java.awt.*;
 
+// Represents pop-up window for adding and editing an assignment
 public class JOptionAssignment extends JPanel {
     private boolean confirmed;
     private String name;
     private String course;
     private Date date;
 
+    // EFFECTS: constructs pop-up window with default values
     public JOptionAssignment(String[] courses) {
         init(courses, null, courses[0]);
     }
 
+    // EFFECTS: constructs pop-up window with existing values
     public JOptionAssignment(String[] courses, String name, String courseName) {
         init(courses, name, courseName);
     }
 
+    // EFFECTs: initializes GUI components for the pop-up window
     private void init(String[] courses, String name, String courseName) {
         confirmed = false;
         setLayout(new GridLayout(0, 1));

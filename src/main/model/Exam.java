@@ -27,8 +27,13 @@ public class Exam implements Comparable, Writable {
         return course;
     }
 
-    public void setCourse(Course course) {
-        this.course = course;
+    // EFFECTS: removes from assignments of associated course if this has one, sets course, then adds to new course
+    public void setCourse(Course newCourse) {
+        if (course != null) {
+            course.remove(this);
+        }
+        course = newCourse;
+        course.add(this);
     }
 
     // EFFECTS: returns > 0 if this date is after the given exam's date

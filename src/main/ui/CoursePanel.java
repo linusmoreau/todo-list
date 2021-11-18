@@ -7,30 +7,26 @@ import javax.swing.*;
 import java.awt.*;
 
 // Represents the panel that displays courses
-public class CoursePanel extends BanneredPanel {
+public class CoursePanel extends TabbedPanel {
     private ToDoList toDoList;
     private final CourseListPanel courseListPanel;
 
+    // EFFECTS: constructs panel to display courses
     public CoursePanel(ToDoList toDoList, int width, ToDoListAppGUI frame) {
         super(width, frame);
-        JButton addButton = new JButton("Add");
-        addButton.addActionListener(e -> add());
-        add(addButton, BorderLayout.NORTH);
         courseListPanel = new CourseListPanel(frame);
         add(courseListPanel, BorderLayout.CENTER);
         update(toDoList);
     }
 
+    // EFFECTS: updates panel to adjust for changes in to-do list
     public void update(ToDoList toDoList) {
         this.toDoList = toDoList;
         courseListPanel.update(toDoList);
     }
 
-    public void updateAll() {
-        frame.updateAll();
-    }
-
-    private void add() {
+    // EFFECTS: provides dialog to add new course
+    protected void add() {
         String s = (String) JOptionPane.showInputDialog(
                 null,
                 "Enter name of course:",

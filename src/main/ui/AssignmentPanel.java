@@ -6,31 +6,27 @@ import model.ToDoList;
 import javax.swing.*;
 import java.awt.*;
 
-// Represents the panel that displays courses
-public class AssignmentPanel extends BanneredPanel {
+// Represents the panel that displays assignments
+public class AssignmentPanel extends TabbedPanel {
     private ToDoList toDoList;
     private final AssignmentListPanel assignmentListPanel;
 
+    // EFFECTS: constructs panel for assignments
     public AssignmentPanel(ToDoList toDoList, int width, ToDoListAppGUI frame) {
         super(width, frame);
-        JButton addButton = new JButton("Add");
-        addButton.addActionListener(e -> add());
-        add(addButton, BorderLayout.NORTH);
         assignmentListPanel = new AssignmentListPanel(frame);
         add(assignmentListPanel, BorderLayout.CENTER);
         update(toDoList);
     }
 
+    // EFFECTS: updates panel for changes in to-do list
     public void update(ToDoList toDoList) {
         this.toDoList = toDoList;
         assignmentListPanel.update(toDoList, toDoList.getAssignments());
     }
 
-    public void updateAll() {
-        frame.updateAll();
-    }
-
-    private void add() {
+    // EFFECTS: adds a new assignment
+    protected void add() {
         if (toDoList.getCourses().size() > 0) {
             JOptionAssignment panel = new JOptionAssignment(toDoList.getCourses().getNames());
             if (panel.getConfirmed()) {
