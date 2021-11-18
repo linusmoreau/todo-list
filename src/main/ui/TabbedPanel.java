@@ -6,25 +6,26 @@ import java.awt.*;
 // Represents a panel contained in tabs
 public abstract class TabbedPanel extends JPanel {
     protected ToDoListAppGUI frame;
-    private final JButton addButton;
 
     // EFFECTS: constructs tabbed panel with add button and banners
-    public TabbedPanel(int width, ToDoListAppGUI frame) {
+    public TabbedPanel(ToDoListAppGUI frame) {
         this.frame = frame;
         setLayout(new BorderLayout());
-        addButton = new JButton("Add");
+        JButton addButton = new JButton("Add");
         addButton.addActionListener(e -> add());
         add(addButton, BorderLayout.NORTH);
-        add(makeBanner(width), BorderLayout.WEST);
-        add(makeBanner(width), BorderLayout.EAST);
+        add(makeBanner(), BorderLayout.WEST);
+        add(makeBanner(), BorderLayout.EAST);
     }
 
     // EFFECTS: makes banner
-    private JPanel makeBanner(int width) {
+    private JPanel makeBanner() {
         JPanel panel = new JPanel();
-        panel.setBackground(new Color(21, 72, 21));
-        panel.setPreferredSize(new Dimension(width / 8, 0));
-        panel.setMinimumSize(new Dimension(width / 8, 0));
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        Icon img = new ImageIcon("./data/falling-snow.gif");
+        for (int i = 0; i < frame.getHeight() / (new JLabel(img)).getPreferredSize().height + 1; i++) {
+            panel.add(new JLabel(img));
+        }
         return panel;
     }
 

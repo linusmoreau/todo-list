@@ -53,13 +53,10 @@ public class CourseListPanel extends ListPanel {
     // EFFECTS: makes panel for the assignment label
     private JPanel makeAssignmentLabel(Course course) {
         JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+        panel.setLayout(new FlowLayout(FlowLayout.LEADING, MARGIN * 2, MARGIN));
         JLabel assignmentLabel = new JLabel("Assignments: " + course.getAssignments().size());
         assignmentLabel.setFont(new Font(ToDoListAppGUI.FONT, Font.PLAIN, 18));
-        addHorizontalMargin(panel);
         panel.add(assignmentLabel);
-        int width = getWidth() - assignmentLabel.getPreferredSize().width - MARGIN;
-        panel.add(Box.createRigidArea(new Dimension(width, 0)));
         panel.setBackground(BACKGROUND);
         return panel;
     }
@@ -67,14 +64,11 @@ public class CourseListPanel extends ListPanel {
     // EFFECTS: makes panel with the course's name and buttons
     private JPanel makeTitlePanel(Course course) {
         JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+        panel.setLayout(new FlowLayout(FlowLayout.LEADING, MARGIN * 2, MARGIN));
         JLabel courseLabel = new JLabel(course.getName());
         JPanel buttonPanel = makeButtonPanel(course);
         courseLabel.setFont(new Font(ToDoListAppGUI.FONT, Font.PLAIN, 24));
-        int width = getWidth() - courseLabel.getPreferredSize().width - buttonPanel.getPreferredSize().width - MARGIN;
-        addHorizontalMargin(panel);
         panel.add(courseLabel);
-        panel.add(Box.createRigidArea(new Dimension(width, 0)));
         panel.add(buttonPanel);
         panel.setBackground(BACKGROUND);
         return panel;

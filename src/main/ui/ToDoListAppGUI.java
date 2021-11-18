@@ -1,6 +1,5 @@
 package ui;
 
-import model.Sorter;
 import model.ToDoList;
 import persistence.JsonReader;
 import persistence.JsonWriter;
@@ -16,7 +15,6 @@ public class ToDoListAppGUI extends JFrame {
     protected static final String FONT = "Monospaced";
     protected static final Font DEFAULT_FONT = new Font(ToDoListAppGUI.FONT, Font.PLAIN, 16);
     private static final String FILE_LOCATION = "./data/todolist.json";
-    private final Sorter sorter;
     private final JsonWriter jsonWriter;
     private final JsonReader jsonReader;
     private ToDoList toDoList;
@@ -29,7 +27,6 @@ public class ToDoListAppGUI extends JFrame {
     public ToDoListAppGUI(ToDoList toDoList) {
         super("To-Do List");
         this.toDoList = toDoList;
-        sorter = new Sorter();
         jsonReader = new JsonReader(FILE_LOCATION);
         jsonWriter = new JsonWriter(FILE_LOCATION);
 
@@ -129,14 +126,14 @@ public class ToDoListAppGUI extends JFrame {
 
     // EFFECTS: makes the course panel within a scroll pane
     private JComponent makeCoursePanel() {
-        coursePanel = new CoursePanel(toDoList, getWidth(), this);
-        return new JScrollPane(coursePanel);
+        coursePanel = new CoursePanel(toDoList, this);
+        return coursePanel;
     }
 
     // EFFECTS: makes assignment panel
     private JComponent makeAssignmentPanel() {
-        assignmentPanel = new AssignmentPanel(toDoList, getWidth(), this);
-        return new JScrollPane(assignmentPanel);
+        assignmentPanel = new AssignmentPanel(toDoList, this);
+        return assignmentPanel;
     }
 
     // EFFECTS: makes exam panel

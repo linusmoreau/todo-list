@@ -12,10 +12,10 @@ public class AssignmentPanel extends TabbedPanel {
     private final AssignmentListPanel assignmentListPanel;
 
     // EFFECTS: constructs panel for assignments
-    public AssignmentPanel(ToDoList toDoList, int width, ToDoListAppGUI frame) {
-        super(width, frame);
+    public AssignmentPanel(ToDoList toDoList, ToDoListAppGUI frame) {
+        super(frame);
         assignmentListPanel = new AssignmentListPanel(frame);
-        add(assignmentListPanel, BorderLayout.CENTER);
+        add(new JScrollPane(assignmentListPanel), BorderLayout.CENTER);
         update(toDoList);
     }
 

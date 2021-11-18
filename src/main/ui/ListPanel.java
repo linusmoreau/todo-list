@@ -11,10 +11,12 @@ public abstract class ListPanel extends JPanel {
     protected static final int MARGIN = 8;
     protected ToDoListAppGUI frame;
     protected ToDoList toDoList;
+    protected final int width;
 
     // EFFECTS: constructs list panel
     public ListPanel(ToDoListAppGUI frame) {
         this.frame = frame;
+        this.width = getWidth();
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
     }
 

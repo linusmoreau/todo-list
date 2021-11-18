@@ -12,10 +12,10 @@ public class CoursePanel extends TabbedPanel {
     private final CourseListPanel courseListPanel;
 
     // EFFECTS: constructs panel to display courses
-    public CoursePanel(ToDoList toDoList, int width, ToDoListAppGUI frame) {
-        super(width, frame);
+    public CoursePanel(ToDoList toDoList, ToDoListAppGUI frame) {
+        super(frame);
         courseListPanel = new CourseListPanel(frame);
-        add(courseListPanel, BorderLayout.CENTER);
+        add(new JScrollPane(courseListPanel), BorderLayout.CENTER);
         update(toDoList);
     }
 
