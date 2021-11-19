@@ -782,6 +782,9 @@ public class ToDoListAppConsole {
         }
     }
 
+    // EFFECTS: checks if string corresponds to save commands
+    //          does corresponding operations if it does and returns true
+    //          else returns false
     private boolean saveCommands(String command) {
         if (command.equalsIgnoreCase("s")) {
             saveToDoList();
