@@ -60,7 +60,7 @@ public class CourseListPanel extends ListPanel {
         JLabel assignmentLabel = new JLabel("Assignments: " + course.getAssignments().size());
         JButton addButton = new JButton("Add");
         assignmentLabel.setFont(new Font(ToDoListAppGUI.FONT, Font.PLAIN, 18));
-        addButton.addActionListener(e -> assignmentPanel.add());
+        addButton.addActionListener(e -> assignmentPanel.addToCourse(course));
         panel.add(assignmentLabel);
         panel.add(addButton);
         panel.setBackground(BACKGROUND);

@@ -1,8 +1,6 @@
 package ui;
 
-import model.Assignment;
-import model.Sorter;
-import model.ToDoList;
+import model.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -103,9 +101,21 @@ public class AssignmentListPanel extends ListPanel {
 
     // MODIFIES: toDoList
     // EFFECTS: provides dialog for adding a new assignment
-    protected void add() {
+    protected void addToCourse() {
+        addToCourse(null);
+    }
+
+    // MODIFIES: toDoList
+    // EFFECTS: provides dialog for adding a new assignment to given course
+    protected void addToCourse(Course course) {
         if (toDoList.getCourses().size() > 0) {
-            JOptionAssignment panel = new JOptionAssignment(toDoList.getCourses().getNames());
+            JOptionAssignment panel;
+            if (course == null) {
+                panel = new JOptionAssignment(toDoList.getCourses().getNames());
+            } else {
+                panel = new JOptionAssignment(toDoList.getCourses().getNames(),
+                        null, course.getName(), null);
+            }
             if (panel.getConfirmed()) {
                 Assignment assignment = new Assignment(
                         panel.getName(), toDoList.getCourses().get(panel.getCourseName()), panel.getDate());
