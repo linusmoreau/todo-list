@@ -9,6 +9,7 @@ import java.awt.*;
 // Represents list panel for courses
 public class CourseListPanel extends ListPanel {
     private ToDoList toDoList;
+    private AssignmentListPanel assignmentPanel;
 
     // EFFECTS: constructs list panel for courses
     public CourseListPanel(ToDoListAppGUI frame) {
@@ -30,8 +31,8 @@ public class CourseListPanel extends ListPanel {
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         JPanel titlePanel = makeTitlePanel(course);
-        JPanel assignmentLabel = makeAssignmentLabel(course);
         JPanel assignmentPanel = makeAssignmentPanel(course);
+        JPanel assignmentLabel = makeAssignmentLabel(course);
         panel.add(titlePanel);
         panel.add(assignmentLabel);
         panel.add(assignmentPanel);
@@ -44,7 +45,7 @@ public class CourseListPanel extends ListPanel {
     private JPanel makeAssignmentPanel(Course course) {
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
-        AssignmentListPanel assignmentPanel = new AssignmentListPanel(frame);
+        assignmentPanel = new AssignmentListPanel(frame);
         assignmentPanel.update(toDoList, course.getAssignments());
         panel.add(assignmentPanel);
         return panel;
@@ -55,8 +56,11 @@ public class CourseListPanel extends ListPanel {
         JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout(FlowLayout.LEADING, MARGIN * 2, MARGIN));
         JLabel assignmentLabel = new JLabel("Assignments: " + course.getAssignments().size());
+        JButton addButton = new JButton("Add");
         assignmentLabel.setFont(new Font(ToDoListAppGUI.FONT, Font.PLAIN, 18));
+        addButton.addActionListener(e -> assignmentPanel.add());
         panel.add(assignmentLabel);
+        panel.add(addButton);
         panel.setBackground(BACKGROUND);
         return panel;
     }
@@ -107,5 +111,22 @@ public class CourseListPanel extends ListPanel {
     private void delete(Course course) {
         toDoList.remove(course);
         frame.updateAll();
+    }
+
+    // EFFECTS: provides dialog to add new course
+    protected void add() {
+        String s = (String) JOptionPane.showInputDialog(
+                null,
+                "Enter name of course:",
+                "Add Course",
+                JOptionPane.PLAIN_MESSAGE,
+                null,
+                null,
+                "");
+        if ((s != null) && (s.length() > 0)) {
+            Course course = new Course(s);
+            toDoList.add(course);
+            frame.updateAll();
+        }
     }
 }

@@ -1,6 +1,5 @@
 package ui;
 
-import model.Assignment;
 import model.ToDoList;
 
 import javax.swing.*;
@@ -27,19 +26,6 @@ public class AssignmentPanel extends TabbedPanel {
 
     // EFFECTS: adds a new assignment
     protected void add() {
-        if (toDoList.getCourses().size() > 0) {
-            JOptionAssignment panel = new JOptionAssignment(toDoList.getCourses().getNames());
-            if (panel.getConfirmed()) {
-                Assignment assignment = new Assignment(
-                        panel.getName(), toDoList.getCourses().get(panel.getCourseName()), panel.getDate());
-                toDoList.add(assignment);
-                updateAll();
-            }
-        } else {
-            JOptionPane.showMessageDialog(frame,
-                    "Assignments can only be added to existing courses. Currently there are no courses.",
-                    "Add assignment warning",
-                    JOptionPane.WARNING_MESSAGE);
-        }
+        assignmentListPanel.add();
     }
 }

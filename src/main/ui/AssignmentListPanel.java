@@ -96,4 +96,22 @@ public class AssignmentListPanel extends ListPanel {
         toDoList.remove(assignment);
         frame.updateAll();
     }
+
+    // EFFECTS: provides dialog for adding a new assignment
+    protected void add() {
+        if (toDoList.getCourses().size() > 0) {
+            JOptionAssignment panel = new JOptionAssignment(toDoList.getCourses().getNames());
+            if (panel.getConfirmed()) {
+                Assignment assignment = new Assignment(
+                        panel.getName(), toDoList.getCourses().get(panel.getCourseName()), panel.getDate());
+                toDoList.add(assignment);
+                frame.updateAll();
+            }
+        } else {
+            JOptionPane.showMessageDialog(frame,
+                    "Assignments can only be added to existing courses. Currently there are no courses.",
+                    "Add assignment warning",
+                    JOptionPane.WARNING_MESSAGE);
+        }
+    }
 }

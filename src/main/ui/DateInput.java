@@ -36,16 +36,23 @@ public class DateInput extends JPanel {
         if (day != null) {
             dayField.setText(day.toString());
         }
+        add(new JLabel("Y:"));
         add(yearField);
+        add(new JLabel("M:"));
         add(monthField);
+        add(new JLabel("D:"));
         add(dayField);
     }
 
     // EFFECTS: returns date
     public Date getDate() {
-        return new Date(
-                Integer.parseInt(yearField.getText()),
-                Integer.parseInt(monthField.getText()),
-                Integer.parseInt(dayField.getText()));
+        try {
+            return new Date(
+                    Integer.parseInt(yearField.getText()),
+                    Integer.parseInt(monthField.getText()),
+                    Integer.parseInt(dayField.getText()));
+        } catch (Exception e) {
+            return new Date();
+        }
     }
 }

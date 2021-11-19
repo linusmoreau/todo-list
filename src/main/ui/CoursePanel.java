@@ -27,18 +27,6 @@ public class CoursePanel extends TabbedPanel {
 
     // EFFECTS: provides dialog to add new course
     protected void add() {
-        String s = (String) JOptionPane.showInputDialog(
-                null,
-                "Enter name of course:",
-                "Add Course",
-                JOptionPane.PLAIN_MESSAGE,
-                null,
-                null,
-                "");
-        if ((s != null) && (s.length() > 0)) {
-            Course course = new Course(s);
-            toDoList.add(course);
-            updateAll();
-        }
+        courseListPanel.add();
     }
 }
