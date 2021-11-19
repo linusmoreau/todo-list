@@ -30,6 +30,56 @@
             },
             "name": "Lecture Ticket",
             "course": "CPSC 210"
+        },
+        {
+            "dueDate": {
+                "month": 11,
+                "isSet": true,
+                "year": 2021,
+                "day": 26
+            },
+            "name": "Discussion Reading",
+            "course": "GEOG 250"
+        },
+        {
+            "dueDate": {
+                "month": 11,
+                "isSet": true,
+                "year": 2021,
+                "day": 26
+            },
+            "name": "Assignment 9",
+            "course": "ASTR 200"
+        },
+        {
+            "dueDate": {
+                "month": 11,
+                "isSet": true,
+                "year": 2021,
+                "day": 20
+            },
+            "name": "Lab 6",
+            "course": "STAT 200"
+        },
+        {
+            "dueDate": {
+                "month": 11,
+                "isSet": true,
+                "year": 2021,
+                "day": 27
+            },
+            "name": "Webwork 10",
+            "course": "STAT 200"
+        },
+        {
+            "dueDate": {
+                "month": 11,
+                "isSet": true,
+                "year": 2021,
+                "day": 23
+            },
+            "name": "Lab 8",
+            "course": "CPSC 210"
         }
     ],
     "exams": [{
