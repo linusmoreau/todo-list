@@ -47,9 +47,7 @@ public class Assignment implements Comparable, Writable {
 
     // EFFECTS: removes from assignments of associated course if this has one, sets course, then adds to new course
     public void setCourse(Course newCourse) {
-        if (course != null) {
-            course.remove(this);
-        }
+        course.remove(this);
         course = newCourse;
         course.add(this);
     }
