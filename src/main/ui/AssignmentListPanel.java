@@ -1,6 +1,7 @@
 package ui;
 
 import model.Assignment;
+import model.Sorter;
 import model.ToDoList;
 
 import javax.swing.*;
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 
 // Represents list panel for assignments
 public class AssignmentListPanel extends ListPanel {
+    private static final Sorter sorter = new Sorter();
 
     // EFFECTS: constructs list panel for assignments
     public AssignmentListPanel(ToDoListAppGUI frame) {
@@ -19,6 +21,7 @@ public class AssignmentListPanel extends ListPanel {
     // EFFECTS: updates assignment display to match given assignments
     public void update(ToDoList toDoList, ArrayList<Assignment> assignments) {
         this.toDoList = toDoList;
+        assignments = sorter.sortedAssignments(assignments);
         removeAll();
         for (Assignment assignment : assignments) {
             add(makeComponent(assignment));
