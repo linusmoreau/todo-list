@@ -31,7 +31,7 @@ public class AssignmentPanel extends TabbedPanel {
             JOptionAssignment panel = new JOptionAssignment(toDoList.getCourses().getNames());
             if (panel.getConfirmed()) {
                 Assignment assignment = new Assignment(
-                        panel.getName(), toDoList.getCourses().get(panel.getCourseName()));
+                        panel.getName(), toDoList.getCourses().get(panel.getCourseName()), panel.getDate());
                 toDoList.add(assignment);
                 updateAll();
             }

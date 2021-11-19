@@ -48,13 +48,19 @@ public class AssignmentListPanel extends ListPanel {
 
         JLabel nameLabel = new JLabel(assignment.getName());
         JLabel courseLabel = new JLabel(assignment.getCourse().getName());
+        JLabel dateLabel = new JLabel(assignment.getDueDate().toString());
 
         nameLabel.setFont(ToDoListAppGUI.DEFAULT_FONT);
         courseLabel.setFont(ToDoListAppGUI.DEFAULT_FONT);
-        nameLabel.setPreferredSize(new Dimension(256, nameLabel.getPreferredSize().height));
+        dateLabel.setFont(ToDoListAppGUI.DEFAULT_FONT);
+
+        nameLabel.setPreferredSize(new Dimension(512, nameLabel.getPreferredSize().height));
+        courseLabel.setPreferredSize(new Dimension(256, courseLabel.getPreferredSize().height));
+        dateLabel.setPreferredSize(new Dimension(256, dateLabel.getPreferredSize().height));
 
         panel.add(nameLabel);
         panel.add(courseLabel);
+        panel.add(dateLabel);
 
         return panel;
     }
@@ -74,11 +80,12 @@ public class AssignmentListPanel extends ListPanel {
     // MODIFIES: toDoList
     // EFFECTS:  makes changes to assignment, affecting the model and rest of GUI
     private void edit(Assignment assignment) {
-        JOptionAssignment panel = new JOptionAssignment(
-                toDoList.getCourses().getNames(), assignment.getName(), assignment.getCourse().getName());
+        JOptionAssignment panel = new JOptionAssignment(toDoList.getCourses().getNames(),
+                assignment.getName(), assignment.getCourse().getName(), assignment.getDueDate());
         if (panel.getConfirmed()) {
             assignment.setName(panel.getName());
             assignment.setCourse(toDoList.getCourses().get(panel.getCourseName()));
+            assignment.setDueDate(panel.getDate());
             frame.updateAll();
         }
     }

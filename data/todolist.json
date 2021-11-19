@@ -23,10 +23,10 @@
         },
         {
             "dueDate": {
-                "month": 10,
+                "month": 11,
                 "isSet": true,
                 "year": 2021,
-                "day": 31
+                "day": 21
             },
             "name": "Lecture Ticket",
             "course": "CPSC 210"
