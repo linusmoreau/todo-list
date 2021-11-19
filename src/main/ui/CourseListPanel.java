@@ -16,6 +16,8 @@ public class CourseListPanel extends ListPanel {
         super(frame);
     }
 
+    // MODIFIES: this
+    // EFFECTS: updates list to match given to-do list
     public void update(ToDoList toDoList) {
         this.toDoList = toDoList;
         removeAll();
@@ -91,6 +93,7 @@ public class CourseListPanel extends ListPanel {
         return panel;
     }
 
+    // MODIFIES: toDoList
     // EFFECTS: provides dialog for editing course
     private void edit(Course course) {
         String s = (String) JOptionPane.showInputDialog(
@@ -107,12 +110,14 @@ public class CourseListPanel extends ListPanel {
         }
     }
 
+    // MODIFIES: toDoList
     // EFFECTS: deletes course
     private void delete(Course course) {
         toDoList.remove(course);
         frame.updateAll();
     }
 
+    // MODIFIES: toDoList
     // EFFECTS: provides dialog to add new course
     protected void add() {
         String s = (String) JOptionPane.showInputDialog(

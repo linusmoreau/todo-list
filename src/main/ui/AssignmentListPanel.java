@@ -15,6 +15,7 @@ public class AssignmentListPanel extends ListPanel {
         super(frame);
     }
 
+    // MODIFIES: this
     // EFFECTS: updates assignment display to match given assignments
     public void update(ToDoList toDoList, ArrayList<Assignment> assignments) {
         this.toDoList = toDoList;
@@ -97,6 +98,7 @@ public class AssignmentListPanel extends ListPanel {
         frame.updateAll();
     }
 
+    // MODIFIES: toDoList
     // EFFECTS: provides dialog for adding a new assignment
     protected void add() {
         if (toDoList.getCourses().size() > 0) {
