@@ -10,6 +10,7 @@ import java.awt.*;
 public class CourseListPanel extends ListPanel {
     private ToDoList toDoList;
     private AssignmentListPanel assignmentPanel;
+    private ExamListPanel examPanel;
 
     // EFFECTS: constructs list panel for courses
     public CourseListPanel(ToDoListAppGUI frame) {
@@ -35,11 +36,39 @@ public class CourseListPanel extends ListPanel {
         JPanel titlePanel = makeTitlePanel(course);
         JPanel assignmentPanel = makeAssignmentPanel(course);
         JPanel assignmentLabel = makeAssignmentLabel(course);
+        JPanel examPanel = makeExamPanel(course);
+        JPanel examLabel = makeExamLabel(course);
         panel.add(titlePanel);
         panel.add(assignmentLabel);
         panel.add(assignmentPanel);
+        panel.add(examLabel);
+        panel.add(examPanel);
         addVerticalMargin(panel);
         panel.setMaximumSize(new Dimension(10000, panel.getPreferredSize().height));
+        return panel;
+    }
+
+    // EFFECTS: makes panel displaying exams of the given course
+    private JPanel makeExamPanel(Course course) {
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+        examPanel = new ExamListPanel(frame);
+        examPanel.update(toDoList, course.getExams());
+        panel.add(examPanel);
+        return panel;
+    }
+
+    // EFFECTS: makes panel for the exam label
+    private JPanel makeExamLabel(Course course) {
+        JPanel panel = new JPanel();
+        panel.setLayout(new FlowLayout(FlowLayout.LEADING, MARGIN * 2, MARGIN));
+        JLabel examLabel = new JLabel("Exams: " + course.getExams().size());
+        JButton addButton = new JButton("Add");
+        examLabel.setFont(new Font(ToDoListAppGUI.FONT, Font.PLAIN, 24));
+        addButton.addActionListener(e -> examPanel.addToCourse(course));
+        panel.add(examLabel);
+        panel.add(addButton);
+        panel.setBackground(BACKGROUND);
         return panel;
     }
 
@@ -59,7 +88,7 @@ public class CourseListPanel extends ListPanel {
         panel.setLayout(new FlowLayout(FlowLayout.LEADING, MARGIN * 2, MARGIN));
         JLabel assignmentLabel = new JLabel("Assignments: " + course.getAssignments().size());
         JButton addButton = new JButton("Add");
-        assignmentLabel.setFont(new Font(ToDoListAppGUI.FONT, Font.PLAIN, 18));
+        assignmentLabel.setFont(new Font(ToDoListAppGUI.FONT, Font.PLAIN, 24));
         addButton.addActionListener(e -> assignmentPanel.addToCourse(course));
         panel.add(assignmentLabel);
         panel.add(addButton);
@@ -73,7 +102,7 @@ public class CourseListPanel extends ListPanel {
         panel.setLayout(new FlowLayout(FlowLayout.LEADING, MARGIN * 2, MARGIN));
         JLabel courseLabel = new JLabel(course.getName());
         JPanel buttonPanel = makeButtonPanel(course);
-        courseLabel.setFont(new Font(ToDoListAppGUI.FONT, Font.PLAIN, 24));
+        courseLabel.setFont(new Font(ToDoListAppGUI.FONT, Font.PLAIN, 32));
         panel.add(courseLabel);
         panel.add(buttonPanel);
         panel.setBackground(BACKGROUND);

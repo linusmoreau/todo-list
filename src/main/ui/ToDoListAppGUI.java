@@ -21,6 +21,7 @@ public class ToDoListAppGUI extends JFrame {
     private Container allPane;
     private CoursePanel coursePanel;
     private AssignmentPanel assignmentPanel;
+    private ExamPanel examPanel;
 
     // MODIFIES: this
     // EFFECTS: provides graphical user interface for managing to-do list
@@ -92,6 +93,7 @@ public class ToDoListAppGUI extends JFrame {
     protected void updateAll() {
         coursePanel.update(toDoList);
         assignmentPanel.update(toDoList);
+        examPanel.update(toDoList);
     }
 
     // EFFECTS: Initializes tabbed pane menu
@@ -138,7 +140,8 @@ public class ToDoListAppGUI extends JFrame {
 
     // EFFECTS: makes exam panel
     private JComponent makeExamsPanel() {
-        return new JPanel();
+        examPanel = new ExamPanel(toDoList, this);
+        return examPanel;
     }
 
     // EFFECTS: makes task panel

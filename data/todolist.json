@@ -82,15 +82,62 @@
             "course": "CPSC 210"
         }
     ],
-    "exams": [{
-        "date": {
-            "month": 11,
-            "isSet": true,
-            "year": 2021,
-            "day": 26
+    "exams": [
+        {
+            "date": {
+                "month": 11,
+                "isSet": true,
+                "year": 2021,
+                "day": 26
+            },
+            "course": "MATH 200"
         },
-        "course": "MATH 200"
-    }],
+        {
+            "date": {
+                "month": 12,
+                "isSet": true,
+                "year": 2021,
+                "day": 14
+            },
+            "course": "ASTR 200"
+        },
+        {
+            "date": {
+                "month": 12,
+                "isSet": true,
+                "year": 2021,
+                "day": 12
+            },
+            "course": "MATH 200"
+        },
+        {
+            "date": {
+                "month": 12,
+                "isSet": true,
+                "year": 2021,
+                "day": 13
+            },
+            "course": "STAT 200"
+        },
+        {
+            "date": {
+                "month": 12,
+                "isSet": true,
+                "year": 2021,
+                "day": 19
+            },
+            "course": "GEOG 250"
+        },
+        {
+            "date": {
+                "month": 12,
+                "isSet": true,
+                "year": 2021,
+                "day": 11
+            },
+            "course": "CPSC 210"
+        }
+    ],
     "tasks": [{
         "date": {"isSet": false},
         "name": "Make profile picture",
