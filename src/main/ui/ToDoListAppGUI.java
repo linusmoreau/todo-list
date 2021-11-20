@@ -163,6 +163,8 @@ public class ToDoListAppGUI extends JFrame {
 
     // EFFECTS: makes movie panel
     private JComponent makeMoviesPanel() {
-        return new JPanel();
+        MoviePanel moviePanel = new MoviePanel(toDoList, this);
+        tabbedPanels.add(moviePanel);
+        return moviePanel;
     }
 }
