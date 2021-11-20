@@ -28,7 +28,7 @@ public class JOptionExam extends JPanel {
         JComboBox<String> courseField = new JComboBox<>(courses);
         courseField.setSelectedItem(courseName);
         DateInput dateInput;
-        if (date != null) {
+        if (date != null && date.isSet()) {
             dateInput = new DateInput(date);
         } else {
             dateInput = new DateInput();

@@ -28,7 +28,7 @@ public class JOptionTask extends JPanel {
         setLayout(new GridLayout(0, 1));
         JTextField nameField = new JTextField(name, 24);
         DateInput dateInput;
-        if (date != null) {
+        if (date != null && date.isSet()) {
             dateInput = new DateInput(date);
         } else {
             dateInput = new DateInput();

@@ -30,7 +30,7 @@ public class JOptionAssignment extends JPanel {
         JComboBox<String> courseField = new JComboBox<>(courses);
         courseField.setSelectedItem(courseName);
         DateInput dateInput;
-        if (dueDate != null) {
+        if (dueDate != null && dueDate.isSet()) {
             dateInput = new DateInput(dueDate);
         } else {
             dateInput = new DateInput();
