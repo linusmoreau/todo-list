@@ -9,6 +9,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 
 // Represents window where all user interface is displayed
 public class ToDoListAppGUI extends JFrame {
@@ -19,9 +20,7 @@ public class ToDoListAppGUI extends JFrame {
     private final JsonReader jsonReader;
     private ToDoList toDoList;
     private Container allPane;
-    private CoursePanel coursePanel;
-    private AssignmentPanel assignmentPanel;
-    private ExamPanel examPanel;
+    private final ArrayList<TabbedPanel> tabbedPanels;
 
     // MODIFIES: this
     // EFFECTS: provides graphical user interface for managing to-do list
@@ -30,6 +29,7 @@ public class ToDoListAppGUI extends JFrame {
         this.toDoList = toDoList;
         jsonReader = new JsonReader(FILE_LOCATION);
         jsonWriter = new JsonWriter(FILE_LOCATION);
+        tabbedPanels = new ArrayList<>();
 
         ImageIcon img = new ImageIcon("./data/icons8-todo-list-96.png");
         setIconImage(img.getImage());
@@ -91,9 +91,9 @@ public class ToDoListAppGUI extends JFrame {
     // MODIFIES: this
     // EFFECTS: updates displays to match changes in to-do list
     protected void updateAll() {
-        coursePanel.update(toDoList);
-        assignmentPanel.update(toDoList);
-        examPanel.update(toDoList);
+        for (TabbedPanel panel : tabbedPanels) {
+            panel.update(toDoList);
+        }
     }
 
     // EFFECTS: Initializes tabbed pane menu
@@ -128,25 +128,30 @@ public class ToDoListAppGUI extends JFrame {
 
     // EFFECTS: makes the course panel within a scroll pane
     private JComponent makeCoursePanel() {
-        coursePanel = new CoursePanel(toDoList, this);
+        CoursePanel coursePanel = new CoursePanel(toDoList, this);
+        tabbedPanels.add(coursePanel);
         return coursePanel;
     }
 
     // EFFECTS: makes assignment panel
     private JComponent makeAssignmentPanel() {
-        assignmentPanel = new AssignmentPanel(toDoList, this);
+        AssignmentPanel assignmentPanel = new AssignmentPanel(toDoList, this);
+        tabbedPanels.add(assignmentPanel);
         return assignmentPanel;
     }
 
     // EFFECTS: makes exam panel
     private JComponent makeExamsPanel() {
-        examPanel = new ExamPanel(toDoList, this);
+        ExamPanel examPanel = new ExamPanel(toDoList, this);
+        tabbedPanels.add(examPanel);
         return examPanel;
     }
 
     // EFFECTS: makes task panel
     private JComponent makeTasksPanel() {
-        return new JPanel();
+        TaskPanel taskPanel = new TaskPanel(toDoList, this);
+        tabbedPanels.add(taskPanel);
+        return taskPanel;
     }
 
     // EFFECTS: makes quote panel

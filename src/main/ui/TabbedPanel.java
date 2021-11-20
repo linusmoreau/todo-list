@@ -1,5 +1,7 @@
 package ui;
 
+import model.ToDoList;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -33,4 +35,6 @@ public abstract class TabbedPanel extends JPanel {
 
     // EFFECTS: adds element to the tab
     protected abstract void add();
+
+    protected abstract void update(ToDoList toDoList);
 }

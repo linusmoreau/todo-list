@@ -6,58 +6,66 @@ import javax.swing.*;
 import java.awt.*;
 
 // Represents pop-up window for adding and editing an exam
-public class JOptionExam extends JPanel {
+public class JOptionTask extends JPanel {
     private boolean confirmed;
-    private String course;
+    private String name;
     private Date date;
+    private String desc;
 
     // EFFECTS: constructs pop-up window with default values
-    public JOptionExam(String[] courses) {
-        init(courses, null, courses[0]);
+    public JOptionTask() {
+        init(null, null, null);
     }
 
     // EFFECTS: constructs pop-up window with existing values
-    public JOptionExam(String[] courses, Date date, String courseName) {
-        init(courses, date, courseName);
+    public JOptionTask(String name, Date date, String desc) {
+        init(name, date, desc);
     }
 
     // EFFECTS: initializes GUI components for the pop-up window
-    private void init(String[] courses, Date date, String courseName) {
+    private void init(String name, Date date, String desc) {
         confirmed = false;
         setLayout(new GridLayout(0, 1));
-        JComboBox<String> courseField = new JComboBox<>(courses);
-        courseField.setSelectedItem(courseName);
+        JTextField nameField = new JTextField(name, 24);
         DateInput dateInput;
         if (date != null) {
             dateInput = new DateInput(date);
         } else {
             dateInput = new DateInput();
         }
-        add(new JLabel("Course: "));
-        add(courseField);
+        JTextField descField = new JTextField(desc);
+        add(new JLabel("Name: "));
+        add(nameField);
         add(new JLabel("Date: "));
         add(dateInput);
-        showDialog(dateInput, courseField);
+        add(new JLabel("Description: "));
+        add(descField);
+        showDialog(nameField, dateInput, descField);
     }
 
     // EFFECTS: display and interpret dialog
-    private void showDialog(DateInput dateInput, JComboBox<String> courseField) {
+    private void showDialog(JTextField nameField, DateInput dateInput, JTextField descInput) {
         int result = JOptionPane.showConfirmDialog(
-                null, this, "Exam", JOptionPane.OK_CANCEL_OPTION,
+                null, this, "Task", JOptionPane.OK_CANCEL_OPTION,
                 JOptionPane.PLAIN_MESSAGE, null);
         if (result == JOptionPane.OK_OPTION) {
-            this.course = courseField.getItemAt(courseField.getSelectedIndex());
+            this.name = nameField.getText();
             this.date = dateInput.getDate();
+            this.desc = descInput.getText();
             confirmed = true;
         }
     }
 
-    public String getCourseName() {
-        return course;
+    public String getName() {
+        return name;
     }
 
     public Date getDate() {
         return date;
+    }
+
+    public String getDesc() {
+        return desc;
     }
 
     public boolean getConfirmed() {
