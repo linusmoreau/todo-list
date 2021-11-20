@@ -156,7 +156,9 @@ public class ToDoListAppGUI extends JFrame {
 
     // EFFECTS: makes quote panel
     private JComponent makeQuotesPanel() {
-        return new JPanel();
+        QuotePanel quotePanel = new QuotePanel(toDoList, this);
+        tabbedPanels.add(quotePanel);
+        return quotePanel;
     }
 
     // EFFECTS: makes movie panel
