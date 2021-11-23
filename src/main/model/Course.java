@@ -6,7 +6,7 @@ import persistence.Writable;
 import java.util.ArrayList;
 
 // Course with a name, assignments, and exams
-public class Course implements Writable {
+public class Course implements Writable, Item {
     private String name;
     private final ArrayList<Assignment> assignments;
     private final ArrayList<Exam> exams;

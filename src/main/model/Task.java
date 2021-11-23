@@ -4,7 +4,7 @@ import org.json.JSONObject;
 import persistence.Writable;
 
 // A task with a short name and possible associated date and description
-public class Task implements Comparable, Writable {
+public class Task implements Comparable, Writable, Item {
     private String name;
     private Date date;
     private String desc;

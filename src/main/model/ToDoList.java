@@ -29,7 +29,12 @@ public class ToDoList implements Writable {
     // MODIFIES: this
     // EFFECTS: adds course to to-do list
     public boolean add(Course course) {
-        return courses.add(course);
+        if (courses.add(course)) {
+            logAdd(course);
+            return true;
+        }
+        EventLog.getInstance().logEvent(new Event("Failed to add course to to-do list"));
+        return false;
     }
 
     // REQUIRES: assignment's course is in the course list
@@ -38,6 +43,7 @@ public class ToDoList implements Writable {
     public void add(Assignment assignment) {
         assignment.getCourse().add(assignment);
         assignments.add(assignment);
+        logAdd(assignment);
     }
 
     // REQUIRES: exam's course is in the course list
@@ -46,24 +52,35 @@ public class ToDoList implements Writable {
     public void add(Exam exam) {
         exam.getCourse().add(exam);
         exams.add(exam);
+        logAdd(exam);
     }
 
     // MODIFIES: this
     // EFFECTS: adds task to to-do list
     public void add(Task task) {
         tasks.add(task);
+        logAdd(task);
     }
 
     // MODIFIES: this
     // EFFECTS: adds quote to to-do list
     public void add(Quote quote) {
         quotes.add(quote);
+        logAdd(quote);
     }
 
     // MODIFIES: this
     // EFFECTS: adds movie to to-do list
     public void add(Movie movie) {
         movies.add(movie);
+        logAdd(movie);
+    }
+
+    // MODIFIES: EventLog
+    // EFFECTS: logs item added to to-do list
+    private void logAdd(Item item) {
+        EventLog.getInstance().logEvent(
+                new Event("Added " + item.getClass().getSimpleName() + " to to-do list"));
     }
 
     // REQUIRES: course is in courses
@@ -72,11 +89,14 @@ public class ToDoList implements Writable {
     public void remove(Course course) {
         for (Assignment assignment : course.getAssignments()) {
             assignments.remove(assignment);
+            logRemove(assignment);
         }
         for (Exam exam : course.getExams()) {
             exams.remove(exam);
+            logRemove(exam);
         }
         courses.remove(course);
+        logRemove(course);
     }
 
     // REQUIRES: assignment is in to-do list
@@ -85,6 +105,7 @@ public class ToDoList implements Writable {
     public void remove(Assignment assignment) {
         assignment.getCourse().remove(assignment);
         assignments.remove(assignment);
+        logRemove(assignment);
     }
 
     // REQUIRES: exam is in to-do list
@@ -93,6 +114,7 @@ public class ToDoList implements Writable {
     public void remove(Exam exam) {
         exam.getCourse().remove(exam);
         exams.remove(exam);
+        logRemove(exam);
     }
 
     // REQUIRES: task is in tasks
@@ -100,6 +122,7 @@ public class ToDoList implements Writable {
     // EFFECTS:  removes task from to-do list
     public void remove(Task task) {
         tasks.remove(task);
+        logRemove(task);
     }
 
     // REQUIRES: quote is in quotes
@@ -107,6 +130,7 @@ public class ToDoList implements Writable {
     // EFFECTS:  removes quote from to-do list
     public void remove(Quote quote) {
         quotes.remove(quote);
+        logRemove(quote);
     }
 
     // REQUIRES: movie is in movies
@@ -114,6 +138,14 @@ public class ToDoList implements Writable {
     // EFFECTS:  removes movie from to-do list
     public void remove(Movie movie) {
         movies.remove(movie);
+        logRemove(movie);
+    }
+
+    // MODIFIES: EventLog
+    // EFFECTS: logs item removal from to-do list
+    private void logRemove(Item item) {
+        EventLog.getInstance().logEvent(
+                new Event("Removed " + item.getClass().getSimpleName() + " from to-do list"));
     }
 
     // EFFECTS: returns the number of courses in to-do list
@@ -215,6 +247,8 @@ public class ToDoList implements Writable {
         return array;
     }
 
+    // MODIFIES: EventLog
+    // EFFECTS: saves to-do list to file
     @Override
     public JSONObject toJson() {
         JSONObject object = new JSONObject();
@@ -224,9 +258,11 @@ public class ToDoList implements Writable {
         object.put("tasks", tasksToJson());
         object.put("quotes", quotesToJson());
         object.put("movies", moviesToJson());
+        EventLog.getInstance().logEvent(new Event("Saved to-do list to file"));
         return object;
     }
 
+    // EFFECTS: prints out every event in the event log to console
     public void quit() {
         for (Event e : EventLog.getInstance()) {
             System.out.println(e.toString());

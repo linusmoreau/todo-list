@@ -4,7 +4,7 @@ import org.json.JSONObject;
 import persistence.Writable;
 
 // Movie with a name and, optionally, a bookmark
-public class Movie implements Writable {
+public class Movie implements Writable, Item {
     private String name;
     private String bookmark;
 

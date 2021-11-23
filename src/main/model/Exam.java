@@ -4,7 +4,7 @@ import org.json.JSONObject;
 import persistence.Writable;
 
 // Course exams set on a date
-public class Exam implements Comparable, Writable {
+public class Exam implements Comparable, Writable, Item {
     private Date date;
     private Course course;
 

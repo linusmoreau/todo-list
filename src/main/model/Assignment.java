@@ -4,7 +4,7 @@ import org.json.JSONObject;
 import persistence.Writable;
 
 // Course assignments with associated names and, optionally, a due date
-public class Assignment implements Comparable, Writable {
+public class Assignment implements Comparable, Writable, Item {
     private String name;
     private Date dueDate;
     private Course course;

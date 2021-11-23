@@ -31,3 +31,15 @@ This application will be used by myself, but it's available if you or anyone wou
 - Data persistence is modelled off of the JsonSerializationDemo repository provided by Paul Carter.
 - Application icon is from https://icons8.com
 - Snowfall gif from https://www.pinterest.ca/pin/75364993754113071/
+
+### Phase 4: Task 2
+Tue Nov 23 13:44:51 PST 2021\
+Added Course to to-do list\
+Tue Nov 23 13:44:59 PST 2021\
+Added Assignment to to-do list\
+Tue Nov 23 13:45:06 PST 2021\
+Added Exam to to-do list\
+Tue Nov 23 13:45:13 PST 2021\
+Removed Assignment from to-do list\
+Tue Nov 23 13:45:15 PST 2021\
+Saved to-do list to file

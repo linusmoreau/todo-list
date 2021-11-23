@@ -4,7 +4,7 @@ import org.json.JSONObject;
 import persistence.Writable;
 
 // Quote with its contents and an author
-public class Quote implements Writable {
+public class Quote implements Writable, Item {
     private String quote;
     private String author;
 
