@@ -9,5 +9,6 @@ public class MainConsole {
     public static void main(String[] args) {
         ToDoList toDoList = new ToDoList();
         new ToDoListAppConsole(toDoList);
+        toDoList.quit();
     }
 }

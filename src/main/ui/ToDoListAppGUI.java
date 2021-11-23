@@ -39,14 +39,14 @@ public class ToDoListAppGUI extends JFrame {
         initWidgets();
     }
 
-    // EFFECTS: Initializes all widgets
+    // EFFECTS: initializes all widgets
     private void initWidgets() {
         allPane = getContentPane();
         initToolbar();
         initTabbedPane();
     }
 
-    // EFFECTS: Initializes side pane containing save and load buttons
+    // EFFECTS: initializes side pane containing save and load buttons
     private void initToolbar() {
         JPanel toolbar = new JPanel();
 
@@ -59,11 +59,17 @@ public class ToDoListAppGUI extends JFrame {
         toolbar.add(loadButton);
 
         JButton quitButton = new JButton("Quit");
-        quitButton.addActionListener(e -> System.exit(0));
+        quitButton.addActionListener(e -> quit());
         toolbar.add(quitButton);
 
         toolbar.setBackground(Color.lightGray);
         allPane.add(toolbar, BorderLayout.NORTH);
+    }
+
+    // EFFECTS: quits the program
+    private void quit() {
+        toDoList.quit();
+        System.exit(0);
     }
 
     // EFFECTS: saves the to-do list to file

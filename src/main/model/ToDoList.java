@@ -5,6 +5,7 @@ import org.json.JSONObject;
 import persistence.Writable;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 // To-do list for tracking various items
 public class ToDoList implements Writable {
@@ -224,5 +225,11 @@ public class ToDoList implements Writable {
         object.put("quotes", quotesToJson());
         object.put("movies", moviesToJson());
         return object;
+    }
+
+    public void quit() {
+        for (Event e : EventLog.getInstance()) {
+            System.out.println(e.toString());
+        }
     }
 }
