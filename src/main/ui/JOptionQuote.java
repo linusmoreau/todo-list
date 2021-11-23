@@ -1,7 +1,5 @@
 package ui;
 
-import model.Date;
-
 import javax.swing.*;
 import java.awt.*;
 
