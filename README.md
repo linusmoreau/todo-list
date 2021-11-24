@@ -29,6 +29,7 @@ This application will be used by myself, but it's available if you or anyone wou
 
 ### Citations
 - Data persistence is modelled off of the JsonSerializationDemo repository provided by Paul Carter.
+- EventLogging system is taken from the AlarmSystem repository provided by Paul Carter.
 - Application icon is from https://icons8.com
 - Snowfall gif from https://www.pinterest.ca/pin/75364993754113071/
 
