@@ -8,7 +8,6 @@ import java.awt.*;
 
 // Represents the panel that displays courses
 public class CoursePanel extends TabbedPanel {
-    private ToDoList toDoList;
     private final CourseListPanel courseListPanel;
 
     // EFFECTS: constructs panel to display courses
@@ -21,7 +20,6 @@ public class CoursePanel extends TabbedPanel {
 
     // EFFECTS: updates panel to adjust for changes in to-do list
     public void update(ToDoList toDoList) {
-        this.toDoList = toDoList;
         courseListPanel.update(toDoList);
     }
 

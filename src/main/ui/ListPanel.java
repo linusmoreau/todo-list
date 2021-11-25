@@ -1,5 +1,6 @@
 package ui;
 
+import model.Sorter;
 import model.ToDoList;
 
 import javax.swing.*;
@@ -9,6 +10,7 @@ import java.awt.*;
 public abstract class ListPanel extends JPanel {
     protected static final Color BACKGROUND = Color.lightGray;
     protected static final int MARGIN = 8;
+    protected static final Sorter sorter = new Sorter();
     protected ToDoListAppGUI frame;
     protected ToDoList toDoList;
     protected final int width;
@@ -28,11 +30,17 @@ public abstract class ListPanel extends JPanel {
         panel.add(margin);
     }
 
-    // EFFECS: adds vertical margin to given panel
+    // EFFECTS: adds vertical margin to given panel
     protected void addVerticalMargin(JPanel panel) {
         JPanel margin = new JPanel();
         margin.setBackground(BACKGROUND);
         margin.setPreferredSize(new Dimension(0, MARGIN));
         panel.add(margin);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: updates represented to-do list
+    protected void update(ToDoList toDoList) {
+        this.toDoList = toDoList;
     }
 }

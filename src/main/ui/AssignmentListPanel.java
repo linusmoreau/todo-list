@@ -8,7 +8,6 @@ import java.util.ArrayList;
 
 // Represents list panel for assignments
 public class AssignmentListPanel extends ListPanel {
-    private static final Sorter sorter = new Sorter();
 
     // EFFECTS: constructs list panel for assignments
     public AssignmentListPanel(ToDoListAppGUI frame) {

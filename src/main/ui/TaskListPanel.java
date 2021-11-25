@@ -1,7 +1,6 @@
 package ui;
 
 import model.Task;
-import model.Sorter;
 import model.ToDoList;
 
 import javax.swing.*;
@@ -10,7 +9,6 @@ import java.util.ArrayList;
 
 // Represents list panel for tasks
 public class TaskListPanel extends ListPanel {
-    private static final Sorter sorter = new Sorter();
 
     // EFFECTS: constructs list panel for tasks
     public TaskListPanel(ToDoListAppGUI frame) {

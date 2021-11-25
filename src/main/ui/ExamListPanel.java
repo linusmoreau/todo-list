@@ -2,7 +2,6 @@ package ui;
 
 import model.Exam;
 import model.Course;
-import model.Sorter;
 import model.ToDoList;
 
 import javax.swing.*;
@@ -11,7 +10,6 @@ import java.util.ArrayList;
 
 // Represents list panel for exams
 public class ExamListPanel extends ListPanel {
-    private static final Sorter sorter = new Sorter();
 
     // EFFECTS: constructs list panel for exams
     public ExamListPanel(ToDoListAppGUI frame) {
@@ -104,8 +102,7 @@ public class ExamListPanel extends ListPanel {
     }
 
     // MODIFIES: toDoList
-    // EFFECTS: provides dialog for adding a new exam
-    // to given course
+    // EFFECTS: provides dialog for adding a new exam to given course
     protected void addToCourse(Course course) {
         if (toDoList.getCourses().size() > 0) {
             JOptionExam panel;
@@ -115,7 +112,7 @@ public class ExamListPanel extends ListPanel {
                 panel = new JOptionExam(toDoList.getCourses().getNames(),
                         null, course.getName());
             }
-            if (panel.getConfirmed()) {
+            if (panel.getConfirmed() && panel.getDate().isSet()) {
                 Exam exam = new Exam(panel.getDate(), toDoList.getCourses().get(panel.getCourseName()));
                 toDoList.add(exam);
                 frame.updateAll();

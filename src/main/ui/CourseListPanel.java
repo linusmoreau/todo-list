@@ -8,7 +8,6 @@ import java.awt.*;
 
 // Represents list panel for courses
 public class CourseListPanel extends ListPanel {
-    private ToDoList toDoList;
     private AssignmentListPanel assignmentPanel;
     private ExamListPanel examPanel;
 
@@ -20,7 +19,7 @@ public class CourseListPanel extends ListPanel {
     // MODIFIES: this
     // EFFECTS: updates list to match given to-do list
     public void update(ToDoList toDoList) {
-        this.toDoList = toDoList;
+        super.update(toDoList);
         removeAll();
         for (Course course : toDoList.getCourses()) {
             add(makeComponent(course));
