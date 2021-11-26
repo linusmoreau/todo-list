@@ -44,7 +44,7 @@ Saved to-do list to file
 ### Phase 4: Task 3
 ![UML Diagram](UML_Design_Diagram.png)
 While the UML diagram is quite large, it is mostly elegant in its design and devoid of unnecessary associations.
-However, there are some parts that would benefit from some changes.
+However, there are some parts that would benefit from some changes:
 - Make Item inherit from Writable, as all Items in this project must be writeable anyhow
 - Remove ListPanel's association with ToDoList as the information it needs can be gotten elsewise
 - Replace use of current custom Date class with a built-in class or at least inherit from it 
